@@ -1,10 +1,10 @@
 module.exports = function(app){
 
     const { User } = require("../models/userModel");
-    // const { Movie } = require("./models");
-    // const { ScreenRoom } = require("./models");
-    // const { MovieShow } = require("./models");
-    // const { Order } = require("./models");
+    const { Movie } = require("../models/movieModel");
+    const { ScreenRoom } = require("../models/screenRoomModel");
+    const { MovieShow } = require("../models/movieShowModel");
+    const { Order } = require("../models/orderModel");
 
     // DEBUG executed each time a request to the app-server is made
     app.use((req, res, next) => {
@@ -93,44 +93,50 @@ module.exports = function(app){
         }
     });
 
-    // app.get("/movies", async (req, res) => {
-    //     const allMovies = await Movie.find();
-    //     return res.status(200).json(allMovies);
-    // });
+    app.get("/movies", async (req, res) => {
+        const allMovies = await Movie.find();
+        return res.status(200).json(allMovies);
+    });
 
-    // app.post("/movies", async (req, res) => {
-    //     const newMovie = new Movie({ ...req.body });
-    //     const insertedMovie = await newMovie.save();
-    //     return res.status(201).redirect("/movies/" + insertedMovie.id);
-    // });
+    app.post("/movies", async (req, res) => {
+        const newMovie = new Movie({ ...req.body });
+        const insertedMovie = await newMovie.save();
+        return res.status(201).redirect("/movies/" + insertedMovie.id);
+    });
 
-    // app.get("/movies/:id", async (req, res) => {
-    //     const { id } = req.params;
-    //     const movie = await Movie.findById(id);
-    //     return res.status(200).json(movie);
-    // });
+    app.get("/movies/:id", async (req, res) => {
+        const { id } = req.params;
+        const movie = await Movie.findById(id);
+        return res.status(200).json(movie);
+    });
 
-    // app.get("/screenrooms", async (req, res) => {
-    //     const allScreenRooms = await ScreenRoom.find();
-    //     return res.status(200).json(allScreenRooms);
-    // });
+    app.get("/screenrooms", async (req, res) => {
+        const allScreenRooms = await ScreenRoom.find();
+        return res.status(200).json(allScreenRooms);
+    });
 
-    // app.post("/screenrooms", async (req, res) => {
-    //     const newScreenRoom = new ScreenRoom({ ...req.body });
-    //     const insertedScreenRoom = await newScreenRoom.save();
-    //     return res.status(201).redirect("/screenrooms/" + insertedScreenRoom.id);
-    // });
+    app.post("/screenrooms", async (req, res) => {
+        const newScreenRoom = new ScreenRoom({ ...req.body });
+        const insertedScreenRoom = await newScreenRoom.save();
+        return res.status(201).redirect("/screenrooms/" + insertedScreenRoom.id);
+    });
 
-    // app.get("/movieshow", async (req, res) => {
-    //     const allScreenRooms = await ScreenRoom.find();
-    //     return res.status(200).json(allScreenRooms);
-    // });
+    app.get("/screenroom/:id", async (req, res) => {
+        const { id } = req.params;
+        const screenroom = await ScreenRoom.findById(id);
+        return res.status(200).json(screenroom);
+    });
 
-    // app.post("/movieshow", async (req, res) => {
-    //     const newScreenRoom = new ScreenRoom({ ...req.body });
-    //     const insertedScreenRoom = await newScreenRoom.save();
-    //     return res.status(201).redirect("/screenrooms/" + insertedScreenRoom.id);
-    // });
+    app.get("/movieshow", async (req, res) => {
+        const allScreenRooms = await ScreenRoom.find();
+        return res.status(200).json(allScreenRooms);
+    });
+
+    app.post("/movieshow", async (req, res) => {
+        const newScreenRoom = new ScreenRoom({ ...req.body });
+        const insertedScreenRoom = await newScreenRoom.save();
+        return res.status(201).redirect("/screenrooms/" + insertedScreenRoom.id);
+    });
 }
 
         // // POST /login gets urlencoded bodies
