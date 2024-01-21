@@ -2,9 +2,9 @@
   "name": "kino",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon ./server.js",
+    "dev": "nodemon app.js",
     "ui": "browser-sync start --config bs-config.js"
   },
   "keywords": [],

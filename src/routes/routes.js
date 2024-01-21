@@ -1,10 +1,10 @@
 module.exports = function(app){
 
-    const { User } = require("./models");
+    const { User } = require("../models/userModel");
     // const { Movie } = require("./models");
-    const { ScreenRoom } = require("./models");
-    const { MovieShow } = require("./models");
-    const { Order } = require("./models");
+    // const { ScreenRoom } = require("./models");
+    // const { MovieShow } = require("./models");
+    // const { Order } = require("./models");
 
     // DEBUG executed each time a request to the app-server is made
     app.use((req, res, next) => {
@@ -152,3 +152,9 @@ module.exports = function(app){
     // });
 // return res.status(200).json(updatedUser);
 // return res.status(200).json(allUsers);
+
+
+
+// getAllDocs: async () => {
+//     return await db.collection(coll).find().toArray()
+// }

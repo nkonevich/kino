@@ -16,7 +16,7 @@ const mongoURI = "mongodb://localhost:27017";
  *  App Configuration
  */
 // pug config
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "src/views"));
 app.set("view engine", "pug");
 // expressjs config
 app.use(express.static(path.join(__dirname, "public")));
@@ -29,7 +29,7 @@ app.use(express.urlencoded( { extended: false } ));
 /**
  * Routes Definitions
  */
-require('./routes')(app);
+require('./src/routes/routes')(app);
 
 
 /**
