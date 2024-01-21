@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const OrderSchema = new mongoose.Schema({
+const OrderSchema = Schema({
   number: {
     type: Number,
     required: true,

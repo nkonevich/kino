@@ -1,6 +1,22 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const ScreenRoomSchema = new mongoose.Schema({
+const Seat = Schema({
+  number: {
+    type: Number,
+    required: true,
+  },
+  type: {
+    type: String,
+    default: "Standard",
+  },
+});
+
+const SeatsRow = Schema({
+  seats: [Seat],
+});
+
+const ScreenRoomSchema = Schema({
   name: {
     type: String,
     required: true,
@@ -9,14 +25,7 @@ const ScreenRoomSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  seats: {
-    type: Array,
-    required: true,
-  },
-  movieShows: {
-    type: Array,
-    required: true,
-  },
+  seatRows: [SeatsRow]
 });
 
 const ScreenRoom = mongoose.model('ScreenRoom', ScreenRoomSchema);

@@ -1,22 +1,23 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const MovieShowSchema = new mongoose.Schema({
+const MovieShowSchema = Schema({
   movieId: {
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId, ref: 'Movie'
   },
-  ScreenRoomId: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: Array,
-    required: true,
+  screenRoomId: {
+    type: Schema.Types.ObjectId, ref: 'ScreenRoom'
   },
   time: {
-    type: Array,
+    type: Date,
     required: true,
   },
+  orders: [{
+    type: Schema.Types.ObjectId, ref: 'Order'
+  }],
+  seats: [{
+    type: Schema.Types.ObjectId, ref: 'Seat'
+  }],
 });
 
 const MovieShow = mongoose.model('MovieShow', MovieShowSchema);

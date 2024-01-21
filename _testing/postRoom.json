@@ -1,0 +1,54 @@
+{
+    "name": "Room 1",
+    "description": "lorem ipsum",
+    "seatRows": [
+        {
+            "seats": [
+                {
+                    "number": "1",
+                    "type": "Standard"
+                },
+                {
+                    "number": "2",
+                    "type": "Standard"
+                },
+                {
+                    "number": "3",
+                    "type": "Standard"
+                },
+                {
+                    "number": "4",
+                    "type": "Standard"
+                },
+                {
+                    "number": "5",
+                    "type": "Standard"
+                }
+            ]
+        },
+        {
+            "seats": [
+                {
+                    "number": "6",
+                    "type": "Premium"
+                },
+                {
+                    "number": "7",
+                    "type": "Premium"
+                },
+                {
+                    "number": "8",
+                    "type": "Premium"
+                },
+                {
+                    "number": "9",
+                    "type": "Premium"
+                },
+                {
+                    "number": "10",
+                    "type": "Premium"
+                }
+            ]
+        }  
+    ]
+}

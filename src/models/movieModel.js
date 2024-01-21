@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const MovieSchema = new mongoose.Schema({
+const MovieSchema = Schema({
   name: {
     type: String,
     required: true,
@@ -11,10 +12,6 @@ const MovieSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true,
-  },
-  movieShows: {
-    type: Array,
     required: true,
   },
 });
