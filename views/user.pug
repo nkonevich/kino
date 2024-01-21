@@ -1,0 +1,23 @@
+extends layout
+
+block layout-content
+    h1.Banner Howdy, #{name}!
+    div.Message
+      div.Title
+        h1 User Profile
+        p Name: #{name}
+        p Username: #{username}
+        p Email: #{email}
+      //- pre.Details=JSON.stringify(user, null, 2)
+    div.NavButtons
+      a(href="/login")
+        div.NavButton Log out
+      form(id="deleteUserButton" action=`/users/${id}`, method="post")
+        input(type="hidden" name="_method" value="delete")
+        a(href="javascript:;" onclick="document.getElementById('deleteUserButton').submit();")
+          div.NavButton Delete user
+      //- form(action=`/users/${id}`, method="post")
+      //-   div.DeleteButton
+      //-     input(type="hidden" name="_method" value="delete")
+      //-     input(type="submit" value="Delete user")
+        

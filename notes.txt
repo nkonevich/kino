@@ -1,0 +1,75 @@
+###############################
+#usage
+
+npm install
+npm run dev
+# server URI   http://localhost:8000/
+
+
+###############################
+# initial installation
+
+npm init -y 
+
+# init server
+# https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/#Set-Up-Express-with-Node-js
+npm install express    
+# test start server (go to http://localhost:3000/)
+node server.js 
+
+# You'll use nodemon to monitor your project source code and automatically restart your Node.js server whenever it changes.
+npm i -D nodemon 
+# in package.json
+replace
+    "test": "echo \"Error: no test specified\" && exit 1"
+with
+    "dev": "nodemon ./index.js"
+
+# install pug for html templates
+# https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/#Use-the-Pug-Template-Engine-with-Express
+npm install pug --save
+
+# config server restart on content change
+# https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/#Add-Live-Reload-to-Express-Using-Browsersync
+npm install -g browser-sync
+browser-sync --version
+browser-sync init
+
+
+npm install mongoose  
+
+
+
+
+
+############################################
+# DB Schema
+
+main (list of movies)
+movie details + order form
+login page
+user details + order details
+
+admin:
+users list
+orders list + order details
+movies list + add/delete/edit movie
+
+
+
+
+
+#####################################################
+# additional
+#####################################################
+
+# provide users with access to some public files 
+https://www.digitalocean.com/community/tutorials/nodejs-express-basics
+
+
+npm install --save-dev jest
+
+
+
+
+      button(type="button" onclick="alert('Hello world!')") Click Me!

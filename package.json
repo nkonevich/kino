@@ -1,0 +1,22 @@
+{
+  "name": "kino",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon ./server.js",
+    "ui": "browser-sync start --config bs-config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.1.0",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.2",
+    "nodemon": "^3.0.3"
+  }
+}
