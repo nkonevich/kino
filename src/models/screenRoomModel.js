@@ -1,19 +1,19 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const Seat = Schema({
+const SeatShema = Schema({
   number: {
     type: Number,
+    required: true,
+  },
+  row: {
+    type: String,
     required: true,
   },
   type: {
     type: String,
     default: "Standard",
   },
-});
-
-const SeatsRow = Schema({
-  seats: [Seat],
 });
 
 const ScreenRoomSchema = Schema({
@@ -25,8 +25,11 @@ const ScreenRoomSchema = Schema({
     type: String,
     required: true,
   },
-  seatRows: [SeatsRow]
+  seats: [SeatShema]
 });
 
 const ScreenRoom = mongoose.model('ScreenRoom', ScreenRoomSchema);
 module.exports = { ScreenRoom };
+
+// const Seat = mongoose.model('Seat', SeatShema);
+// module.exports = { ScreenRoom, Seat };

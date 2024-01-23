@@ -1,0 +1,17 @@
+extends layout
+
+block layout-content
+  h1.Banner Movieshows
+  pre.Details=JSON.stringify(movieshows, null, 2)
+
+  form(id="createMovieShowForm" action="/movieshows" method="POST")
+    label(for="movieId") movieId
+    input(id="movieId" type="text" name="movieId")
+    label(for="screenRoomId") screenRoomId
+    input(id="screenRoomId" type="text" name="screenRoomId")
+    label(for="time") time
+    input(id="time" type="text" name="time")
+    label(for="password") Password
+    input(id="password" type="text" name="password")
+    input(type="submit" value="Submit")
+        
