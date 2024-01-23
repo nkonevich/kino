@@ -5,6 +5,7 @@ module.exports = function(app){
     const { MovieShow } = require("../models/movieShowModel");
     const { User } = require("../models/userModel");
     const { Order } = require("../models/orderModel");
+    const { transporter } = require("../../nodemailer-config");
 
     // DEBUG executed each time a request to the app-server is made
     app.use((req, res, next) => {
@@ -105,6 +106,16 @@ module.exports = function(app){
 
     app.post("/orders", async (req, res) => {
         const newOrder = new Order({ ...req.body });
+        // get seat
+        const seatId = req.query.seat 
+        const movieShow = await MovieShow.findById(newOrder["movieShow"])
+        const seat = movieShow.seatsAvailability.id(seatId);
+        newOrder.seat = { 
+            "seatRow": seat.seatRow,
+            "seatNumber": seat.seatNumber, 
+            "price": seat.price 
+        }
+
         const insertedOrder = await newOrder.save();
         return res.status(200).json(insertedOrder);
     });
@@ -189,6 +200,21 @@ module.exports = function(app){
         return res.status(200).json(screenroom);
     });
 
+    app.get("/email", (req, res) => {
+        const mailData = {
+            from: 'nkonevich@yahoo.com',  // sender address
+              to: 'nkonevich@gmail.com',   // list of receivers
+              subject: 'Sending Email using Node.js',
+              text: 'That was easy!',
+              html: '<b>Hey there! </b> <br> This is our first message sent with Nodemailer<br/>',
+            };
+        transporter.sendMail(mailData, function (err, info) {   
+            if(err) {
+                console.log(err)
+            }
+            res.status(200).send( {message: info} );
+        })
+    });
 }
 
         // // POST /login gets urlencoded bodies

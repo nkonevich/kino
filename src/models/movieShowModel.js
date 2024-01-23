@@ -15,8 +15,9 @@ const SeatsAvailabilityShema = Schema({
   price: {
     type: Number,
     default: 0
-  },
-  _id: false 
+  }
+  // },
+  // _id: false 
 })
 
 const MovieShowSchema = Schema({

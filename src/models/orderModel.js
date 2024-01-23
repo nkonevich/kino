@@ -1,35 +1,27 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const OrderSchema = Schema({
-  number: {
-    type: Number,
-    required: true,
+const Seat = Schema({ 
+  seatRow: {
+    type: String
   },
-  userId: {
-    type: Number,
-    required: true,
-  },
-  userEmail: {
-    type: String,
-    required: true,
-  },
-  movieId: {
-    type: Number,
-    required: true,
-  },
-  date: {
-    type: String,
-    required: true,
-  },
-  time: {
-    type: String,
-    required: true,
+  seatNumber: {
+    type: Number
   },
   price: {
-    type: String,
-    required: true,
+    type: Number,
+    default: 0
+  }
+})
+
+const OrderSchema = Schema({
+  user: {
+    type: Schema.Types.ObjectId, ref: 'User'
   },
+  movieShow: {
+    type: Schema.Types.ObjectId, ref: 'MovieShow'
+  },
+  seat: Seat
 });
 
 const Order = mongoose.model('Order', OrderSchema);

@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const SeatShema = Schema({
-  number: {
-    type: Number,
-    required: true,
-  },
   row: {
     type: String,
+    required: true,
+  },
+  number: {
+    type: Number,
     required: true,
   },
   type: {
