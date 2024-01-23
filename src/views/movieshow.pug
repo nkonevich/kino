@@ -1,0 +1,16 @@
+extends layout
+
+block layout-content
+  h1.Banner Movieshows
+
+  each seat in movieshow.seatsAvailability
+    table.table.table-striped
+      tr 
+        //- td= seat.price
+        //- td= seat.price
+        if seat.available
+          td
+            h2.green= seat.price
+        else 
+          td
+            h5.red= seat.price

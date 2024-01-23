@@ -4,6 +4,12 @@ block layout-content
   h1.Banner Movieshows
   pre.Details=JSON.stringify(movieshows, null, 2)
 
+  each n in usersList
+    div.UserBlock
+      p Name: #{n.name}
+      p Email: #{n.email}
+      p Orders: #{n.orders}
+
   form(id="createMovieShowForm" action="/movieshows" method="POST")
     label(for="movieId") movieId
     input(id="movieId" type="text" name="movieId")

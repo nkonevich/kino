@@ -144,7 +144,8 @@ module.exports = function(app){
             .populate('movie', 'name')
             .populate('screenRoom', 'name') 
             .exec()
-        return res.status(200).json(movieshow);
+
+        return res.status(200).render("movieShow", { movieshow: movieshow });
     });
 
     // movies
