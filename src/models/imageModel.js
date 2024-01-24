@@ -3,7 +3,6 @@ const { Schema } = mongoose;
 
 const ImageShema = Schema({
     name: String,
-    desc: String,
     img:
     {
         data: Buffer,
@@ -11,7 +10,6 @@ const ImageShema = Schema({
     }
 });
  
-const Image = mongoose.model('Image', ImageShema);
-module.exports = { Image };
+module.exports = mongoose.model('Image', ImageShema);
 
 // TODO: see https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/

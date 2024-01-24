@@ -81,3 +81,20 @@ npm install --save-dev jest
 ########################################3
 populate
 https://www.mongodb.com/community/forums/t/populate-a-nested-schema-with-model-having-nested-schema-in-mongoose/10553
+
+
+
+
+
+#############################################
+Dependencies
+#############################################
+"dayjs":            format dates into human readable form
+"dotenv":           loads environment variables from a .env file into process.env
+"express":          server
+"mongoose":         db
+"multer":           uploading files
+"nodemailer":       emails
+"pug":              html templates
+"browser-sync":     autorestarting webpages in browser when changes in code are made
+"nodemon":          auto restarting server when changes in code are made

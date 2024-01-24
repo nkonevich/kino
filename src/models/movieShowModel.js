@@ -11,13 +11,16 @@ const SeatsAvailabilityShema = Schema({
   available: {
     type: Boolean,
     default: true
+  }
+})
+
+const SeatsPricingShema = Schema({ 
+  seatType: {
+    type: String
   },
   price: {
-    type: Number,
-    default: 0
+    type: Number
   }
-  // },
-  // _id: false 
 })
 
 const MovieShowSchema = Schema({
@@ -31,7 +34,8 @@ const MovieShowSchema = Schema({
     type: Date,
     required: true,
   },
-  seatsAvailability: [SeatsAvailabilityShema]
+  seatsAvailability: [SeatsAvailabilityShema],
+  SeatsPricing: [SeatsPricingShema]
 });
 
 const MovieShow = mongoose.model('MovieShow', MovieShowSchema);

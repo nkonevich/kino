@@ -1,11 +1,12 @@
 module.exports = function(app){
-
     const { ScreenRoom } = require("../models/screenRoomModel");
     const { Movie } = require("../models/movieModel");
     const { MovieShow } = require("../models/movieShowModel");
     const { User } = require("../models/userModel");
     const { Order } = require("../models/orderModel");
     const { transporter } = require("../../nodemailer-config");
+    const { upload } = require("../../multer-config");
+    const dayjs = require('dayjs')
 
     // DEBUG executed each time a request to the app-server is made
     app.use((req, res, next) => {
@@ -156,7 +157,11 @@ module.exports = function(app){
             .populate('screenRoom', 'name') 
             .exec()
 
-        return res.status(200).render("movieShow", { movieshow: movieshow });
+        const rows = await MovieShow.findById(id)
+            .distinct("seatsAvailability.seatRow")  
+        const time = dayjs(movieshow.time).format("DD-MM-YYYY HH:mm")
+
+        return res.status(200).render("movieShow", { movieshow: movieshow, rows: rows, timeString: time });
     });
 
     // movies
@@ -215,9 +220,15 @@ module.exports = function(app){
             res.status(200).send( {message: info} );
         })
     });
+
+
+    app.get("/test", async (req, res) => {
+        
+        return res.status(200).send(dayjs(1318781876406).format("HH:mm DD-MM-YYYY"));
+    });
 }
 
-        // // POST /login gets urlencoded bodies
+        // // POST /login gets urlencoded bodies 
         // app.post('/login', urlencodedParser, function (req, res) {
         //     res.send('welcome, ' + req.body.username)
         // })
