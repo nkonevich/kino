@@ -4,7 +4,7 @@
 const express = require("express");       // server
 const path = require("path");
 const mongoose = require('mongoose');     // DB
-const nodemailer = require('nodemailer'); // email client
+const fileupload = require("express-fileupload")
 
 /**
  * App Variables
@@ -21,6 +21,8 @@ app.set("views", path.join(__dirname, "src/views"));
 app.set("view engine", "pug");
 // expressjs config
 app.use(express.static(path.join(__dirname, "public")));
+// file upload
+app.use(fileupload())
 
 // parse application/json
 app.use(express.json( { extended: false } ));

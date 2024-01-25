@@ -1,0 +1,25 @@
+extends layout
+
+block layout-content
+  div.View.LoginView
+    h1.Banner Movies admin
+    div.LoginContent
+      div.LoginBlock
+        div.LoginTitle
+            h3 Create movie
+        div.LoginForm
+            form(id="newMovieForm" action="/movies" method="POST" enctype="multipart/form-data")
+                label(for="name") Name
+                input(id="name" type="text" name="name")
+                label(for="description") Description
+                input(id="description" type="text" name="description")
+                label(for="image") Image
+                input(id="image" type="file" name="image")
+                input(type="submit" value="Submit")
+    div
+        div.LoginTitle
+            h3 All movies 
+        div 
+            each n in movies
+                div
+                    p Name: #{n.name}

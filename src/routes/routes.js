@@ -4,8 +4,8 @@ module.exports = function(app){
     const { MovieShow } = require("../models/movieShowModel");
     const { User } = require("../models/userModel");
     const { Order } = require("../models/orderModel");
+    const { Image } = require("../models/imageModel");
     const { transporter } = require("../../nodemailer-config");
-    const { upload } = require("../../multer-config");
     const dayjs = require('dayjs')
 
     // DEBUG executed each time a request to the app-server is made
@@ -169,13 +169,29 @@ module.exports = function(app){
 
     app.get("/movies", async (req, res) => {
         const allMovies = await Movie.find();
-        return res.status(200).json(allMovies);
+        return res.status(200).render("movies", {
+            movies: allMovies
+        });
     });
 
     app.post("/movies", async (req, res) => {
-        const newMovie = new Movie({ ...req.body });
-        const insertedMovie = await newMovie.save();
-        return res.status(200).json(insertedMovie);
+        let imgObj = req.files.image
+        console.log(req.files.image)
+        console.log(imgObj)
+        if(imgObj.mimetype == "image/jpeg" || imgObj.mimetype == "image/png" || imgObj.mimetype == "image/jpg" ){
+            var image = Buffer.from(imgObj.data.toString('base64'), 'base64');
+
+            const newMovie = new Movie({ 
+                name: req.body.name,
+                description: req.body.description,
+                image: {
+                    data: image,
+                    contentType: imgObj.mimetype
+                }
+            });
+            const insertedMovie = await newMovie.save();
+            return res.status(200).json(insertedMovie)
+        }
     });
 
     app.get("/movies/:id", async (req, res) => {
@@ -222,6 +238,28 @@ module.exports = function(app){
     });
 
 
+    app.get('/images', (req, res) => {
+        return res.status(200).render("imageUpload");
+    });
+
+    app.post('/images', async(req, res) => {
+        let i = req.files.img
+        if(i.mimetype == "image/jpeg" || i.mimetype == "image/png" || i.mimetype == "image/jpg" ){
+            let imgData = i.data
+            let base64 = imgData.toString('base64');
+            var image = Buffer.from(base64, 'base64');
+            let doc = await Movie.findOneAndUpdate({
+                $set:{
+                    img:{ 
+                        data: image,
+                        contentType: ss.mimetype
+                    },
+                    name: req.body.name
+                }
+            })
+        }
+    });
+
     app.get("/test", async (req, res) => {
         
         return res.status(200).send(dayjs(1318781876406).format("HH:mm DD-MM-YYYY"));
@@ -266,3 +304,15 @@ module.exports = function(app){
 // console.log('The movie name is %s', movieshow.movie.name);
 
 // const movie = await Movie.findById(allMovieShows[0].movieId);
+
+
+
+// let doc = await Movie.findOneAndUpdate({
+//     $set:{
+//         img:{ 
+//             data: image,
+//             contentType: ss.mimetype
+//         },
+//         name: req.body.name
+//     }
+// })

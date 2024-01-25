@@ -82,7 +82,9 @@ npm install --save-dev jest
 populate
 https://www.mongodb.com/community/forums/t/populate-a-nested-schema-with-model-having-nested-schema-in-mongoose/10553
 
-
+########################################
+upload images
+https://thisisshreya.hashnode.dev/how-to-add-images-in-mongodb-using-mongoose-without-gridfs
 
 
 
