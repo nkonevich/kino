@@ -4,7 +4,6 @@ module.exports = function(app){
     const { MovieShow } = require("../models/movieShowModel");
     const { User } = require("../models/userModel");
     const { Order } = require("../models/orderModel");
-    const { Image } = require("../models/imageModel");
     const { transporter } = require("../../nodemailer-config");
     const dayjs = require('dayjs')
 
@@ -176,21 +175,20 @@ module.exports = function(app){
 
     app.post("/movies", async (req, res) => {
         let imgObj = req.files.image
-        console.log(req.files.image)
-        console.log(imgObj)
         if(imgObj.mimetype == "image/jpeg" || imgObj.mimetype == "image/png" || imgObj.mimetype == "image/jpg" ){
-            var image = Buffer.from(imgObj.data.toString('base64'), 'base64');
+            let img_base64 = imgObj.data.toString('base64');
+            // let img_binary = Buffer.from(img_base64, 'base64');
 
             const newMovie = new Movie({ 
                 name: req.body.name,
                 description: req.body.description,
                 image: {
-                    data: image,
+                    data: img_base64,
                     contentType: imgObj.mimetype
                 }
             });
             const insertedMovie = await newMovie.save();
-            return res.status(200).json(insertedMovie)
+            return res.status(201).redirect("/movies");
         }
     });
 
