@@ -4,12 +4,12 @@ const tools = require('../tools/tools');
 const { User } = require("../../models/userModel");
 
 router.get("/", async (req, res, next) => {
-    const foundObjects = await tools.getAll( req, res, next, User, "-password")
+    const foundObjects = await tools.getAll( req, res, next, User, {select: "-password"})
     res.status(200).json(foundObjects)
 });
 
 router.get("/:id", async (req, res, next) => {
-    const foundObject = await tools.getById( req, res, next, User, "-password")
+    const foundObject = await tools.getById( req, res, next, User, {select: "-password"})
     res.status(200).json(foundObject)
 });
 

@@ -4,8 +4,10 @@ module.exports = function(app){
     const { MovieShow } = require("../models/movieShowModel");
 
     app.get("/", async (req, res, next)=> {
-        var foundObjects = await tools.getAll( req, res, next, MovieShow)
-        await MovieShow.populate(foundObjects, { path: 'movie screenRoom' })
+        var foundObjects = await tools.getAll( req, res, next, MovieShow, {sort: [['time', 1]]})
+        await MovieShow.populate(foundObjects, { 
+            path: 'movie screenRoom'
+        })
         res.render("index", { 
             movieshows: foundObjects,
             timeToString: tools.formatString

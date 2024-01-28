@@ -28,16 +28,17 @@ module.exports = {
 
 
     // find all model objecs and handle errors
-    getAll: async function ( req, res, next, model, select=null ) {
+    getAll: async function ( req, res, next, model, { select=null, sort=[['_id', 1]] } = {}  ) {
         try {
             var foundObjects = null
             if (select) {
                 // e.g. "-password" to skip it in results
-                foundObjects = await model.find().select(select)
+                foundObjects = await model.find().select(select).sort(sort)
             } else {
                 // find
-                foundObjects = await model.find()
+                foundObjects = await model.find().sort(sort)
             }
+            console.log(foundObjects)
             return foundObjects
         } catch (error) {
             // handle errors (see errors.js)

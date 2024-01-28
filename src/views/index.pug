@@ -3,24 +3,11 @@ extends layout
 block layout-content
   h1.Banner Movies
   div
-      table.table
-        each n in movieshows
-          tr
-            div
-              td #{timeToString(n.time, "HH:mm DD-MM-YYYY")} 
-              td #{n.movie.name}
-              td
-                img(
-                    src="data:"+n.movie.image.contentType+";base64,"+n.movie.image.data 
-                    width="128" 
-                    height="128"
-                  )
-
-  //- div.Message
-  //-   div.Title
-  //-     h3 Making the Best
-  //-     h1 Food For Devs
-  //-   span.Details Access the WHATABYTE Team Portal
-  //- div.NavButtons
-  //-   a(href="/user")
-  //-       div.NavButton Just dive in!
+    each n in movieshows
+      div(class="media position-relative p-md-4 bg-light movieShowBlock")
+        img(src="data:"+n.movie.image.contentType+";base64,"+n.movie.image.data class="mr-3" width="200" height="200")
+        div(class="media-body")
+          h5(class="mt-0") #{n.movie.name} 
+          h5(class="mt-0") #{timeToString(n.time, "HH:mm DD-MM-YYYY")} 
+          p #{n.movie.description} 
+          a(href="/movieshows/"+n._id class="stretched-link") Book a ticket
