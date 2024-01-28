@@ -86,5 +86,12 @@ module.exports = {
         } catch (error) {
             next(error) 
         }
+    },
+
+    // DateToString
+    formatString: function ( dateString, format ) { 
+        const dayjs = require('dayjs')     
+        const newDateString = dayjs(dateString).format(format)
+        return newDateString
     }
 }

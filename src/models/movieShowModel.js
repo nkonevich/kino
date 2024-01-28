@@ -50,7 +50,7 @@ MovieShowSchema.methods.updatePrice = function(seatType, price) {
     function(err,doc) {
 
     }
-);
+  );
 
   console.log( seatType );
   console.log( price );

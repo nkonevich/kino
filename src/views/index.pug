@@ -2,11 +2,12 @@ extends layout
 
 block layout-content
   h1.Banner Movies
-  div 
-      table
+  div
+      table.table
         each n in movieshows
           tr
             div
+              td #{timeToString(n.time, "HH:mm DD-MM-YYYY")} 
               td #{n.movie.name}
               td
                 img(

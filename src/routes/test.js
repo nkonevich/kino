@@ -317,7 +317,7 @@ module.exports = function(app){
 
 
 
-// let doc = await Movie.findOneAndUpdate({
+// let doc = await Movie.findOneAndUpdate({dayjs(Date.now()).format("HH:mm:ss-DD-MM-YYYY")
 //     $set:{
 //         img:{ 
 //             data: image,
