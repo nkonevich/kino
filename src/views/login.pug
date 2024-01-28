@@ -1,6 +1,8 @@
 extends layout
 
 block layout-content
+  if alert 
+    div(class="alert alert-warning" role="alert") #{alert}
   div.View.LoginView
     h1.Banner Please login
     div.LoginContent
@@ -8,11 +10,11 @@ block layout-content
         div.LoginTitle
           <h3>Login as existing user</h3>
         div.LoginForm
-          form(id="loginForm" action="/user" method="GET")
+          form(id="loginForm" action="/login" method="POST")
               label(for="username") Username
-              input(id="username" type="text" name="Username")
+              input(id="username" type="text" name="username")
               label(for="password") Password
-              input(id="password" type="text" name="Password")
+              input(id="password" type="text" name="password")
               input(type="submit" value="Submit")
       div.LoginBlock
         div.LoginTitle

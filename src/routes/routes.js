@@ -9,4 +9,6 @@ module.exports = function(app){
     app.use('/admin', adminRouter)
     // api
     // require('./api/api')(app);  // deactivated for now
+
+    require('./test')(app);
 }

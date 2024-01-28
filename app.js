@@ -5,6 +5,9 @@ const express = require("express");       // server
 const path = require("path");
 const mongoose = require('mongoose');     // DB
 const fileupload = require("express-fileupload")
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const MongoStore = require('connect-mongo');
 
 /**
  * App Variables
@@ -28,6 +31,21 @@ app.use(fileupload())
 app.use(express.json( { extended: false } ));
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded( { extended: false } ));
+// user authentication with secret as param
+// app.use(cookieParser('123'))
+app.use(session({
+  secret: 'indiana jones is the best',
+  resave: true,
+  saveUninitialized: false,
+  maxAge: { maxAge: 24 * 60 * 60 * 1000 }, // 24 hours
+  store: MongoStore.create({
+    mongoUrl: mongoURI,
+    collectionName: "sessions",
+    stringify: false,
+    autoRemove: "interval",
+    autoRemoveInterval: 1
+  })
+}))
 
 /**
  * Routes Definitions

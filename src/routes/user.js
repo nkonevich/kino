@@ -8,19 +8,34 @@ module.exports = function(app){
 
     // login with existing user
     app.post("/login", async (req, res, next) => {
-        // TODO 
+        if (!req.body.username || !req.body.password) {
+            res.status(200).render("login", { alert: "Please enter both username and password" })
+        } else {
+            const user = await User.findOne({ username: req.body.username, password: req.body.password }).exec();
+            if (!user) {
+                res.status(200).render("login", { alert: "The provided user credentials were not found" })
+            } else {
+                req.session.user=user.username
+                res.status(201).redirect("/users/"+user.id);
+            }
+        }
     });
 
     // single user page
-    app.get("/users/:id", async (req, res, next) => {
+    app.get("/users/:id", tools.checkAuthentication, async (req, res, next) => {
         const user = await tools.getById( req, res, next, User )
         res.status(200).render("user", { user: user })
     })
 
     // create new user
     app.post("/users", async (req, res, next) => {
-        const createdObject = await tools.postData( req, res, next, User )
-        res.status(201).redirect("/users/"+createdObject.id);
+        if (await User.exists({ username: req.body.username })) {
+            res.status(200).render("login", { alert: "The provided username already exists" })
+        } else {
+            const createdObject = await tools.postData( req, res, next, User )
+            req.session.user=createdObject.username
+            res.status(201).redirect("/users/"+createdObject.id);
+        }
     });
 
     // update/delete user
