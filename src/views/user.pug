@@ -10,9 +10,9 @@ block layout-content
         p Email: #{user.email}
       //- pre.Details=JSON.stringify(user, null, 2)
     div.NavButtons
-      a(href="/login")
+      a(href="/logout")
         div.NavButton Log out
-      form(id="deleteUserButton" action=`/users/${user.id}`, method="post")
+      form(id="deleteUserButton" action=`/users/${user.id}`, method="POST")
         input(type="hidden" name="_method" value="delete")
         a(href="javascript:;" onclick="document.getElementById('deleteUserButton').submit();")
           div.NavButton Delete user

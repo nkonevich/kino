@@ -6,6 +6,11 @@ module.exports = function(app){
         res.render("login");
     });
 
+    app.get("/logout", (req, res) => {
+        req.session.destroy()
+        res.render("login", { alert: "Successfully logged out" });
+    });
+
     // login with existing user
     app.post("/login", async (req, res, next) => {
         if (!req.body.username || !req.body.password) {
