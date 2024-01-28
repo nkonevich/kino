@@ -285,6 +285,10 @@ form[id=registerForm] {
   margin: 2em
 }
 
+img {
+  object-fit: cover
+}
+
 
 
 /* ######################################## */
