@@ -2,15 +2,11 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const Seat = Schema({ 
-  seatRow: {
+  row: {
     type: String
   },
-  seatNumber: {
+  number: {
     type: Number
-  },
-  price: {
-    type: Number,
-    default: 0
   }
 })
 
@@ -21,7 +17,11 @@ const OrderSchema = Schema({
   movieShow: {
     type: Schema.Types.ObjectId, ref: 'MovieShow'
   },
-  seat: Seat
+  seat: Seat,
+  price: {
+    type: Number,
+    default: 0
+  }
 });
 
 const Order = mongoose.model('Order', OrderSchema);

@@ -32,7 +32,9 @@ app.use(express.urlencoded( { extended: false } ));
 /**
  * Routes Definitions
  */
+require('./src/routes/tools/defaults')(app);
 require('./src/routes/routes')(app);
+require('./src/routes/tools/errors')(app);
 
 /**
  * Server Activation

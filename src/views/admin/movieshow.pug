@@ -1,0 +1,25 @@
+extends layout
+
+block layout-content
+  h1.Banner #{movieshow.movie.name} #{timeString}
+  div
+    form
+      each row in rows
+        div
+          each seat in movieshow.seatsAvailability
+            if seat.seatRow == row
+              if seat.available
+                input.SeatButton(type="button" value=seat.seatRow+seat.seatNumber)
+              else  
+                input.SeatButton(type="button" value=seat.seatRow+seat.seatNumber)
+
+  //- div 
+  //-   each row in rows
+  //-     div
+  //-       tr
+  //-         each seat in movieshow.seatsAvailability
+  //-           if seat.seatRow == row
+  //-             if seat.available
+  //-                 td.green= seat.seatRow
+  //-             else 
+  //-                 td.red= seat.seatRow

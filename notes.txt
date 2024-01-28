@@ -100,3 +100,9 @@ Dependencies
 "pug":              html templates
 "browser-sync":     autorestarting webpages in browser when changes in code are made
 "nodemon":          auto restarting server when changes in code are made
+
+
+
+in .pug
+
+  pre.Details=JSON.stringify(movieshows, null, 2)

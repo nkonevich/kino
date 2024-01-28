@@ -1,18 +1,18 @@
 extends layout
 
 block layout-content
-    h1.Banner Howdy, #{name}!
+    h1.Banner Howdy, #{user.name}!
     div.Message
       div.Title
         h1 User Profile
-        p Name: #{name}
-        p Username: #{username}
-        p Email: #{email}
+        p Name: #{user.name}
+        p Username: #{user.username}
+        p Email: #{user.email}
       //- pre.Details=JSON.stringify(user, null, 2)
     div.NavButtons
       a(href="/login")
         div.NavButton Log out
-      form(id="deleteUserButton" action=`/users/${id}`, method="post")
+      form(id="deleteUserButton" action=`/users/${user.id}`, method="post")
         input(type="hidden" name="_method" value="delete")
         a(href="javascript:;" onclick="document.getElementById('deleteUserButton').submit();")
           div.NavButton Delete user

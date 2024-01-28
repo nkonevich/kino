@@ -17,11 +17,7 @@ const UserSchema = Schema({
   password: {
     type: String,
     required: true,
-  },
-  orders: {
-    type: Array,
-    required: false,
-  },
+  }
 });
 
 const User = mongoose.model('User', UserSchema);

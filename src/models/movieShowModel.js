@@ -35,8 +35,39 @@ const MovieShowSchema = Schema({
     required: true,
   },
   seatsAvailability: [SeatsAvailabilityShema],
-  SeatsPricing: [SeatsPricingShema]
+  seatsPricing: [SeatsPricingShema]
 });
 
+MovieShowSchema.methods.updatePrice = function(seatType, price) {
+  
+  MovieShow.findOneAndUpdate(
+    { "_id": folderId, "permissions._id": permission._id },
+    { 
+        "$set": {
+            "permissions.$": permission
+        }
+    },
+    function(err,doc) {
+
+    }
+);
+
+  console.log( seatType );
+  console.log( price );
+
+  return   console.log(this.id);
+  // this.seatsAvailability.updateMany(
+  //   {movie: "65b1aefd8d274134e970869b"}, 
+  //   {time: "2014-09-25T11:58:36.117+00:00"}
+  //   // {seatsPricing: [ {type: "Standard"} ]}, 
+  //   // {seatsPricing: [ {price: 555} ]}
+  // ).exec(callback)
+
+  // this.save(cb)
+};
+
 const MovieShow = mongoose.model('MovieShow', MovieShowSchema);
+
+
+
 module.exports = { MovieShow };
