@@ -1,10 +1,12 @@
 module.exports = function(app){
 
+    // main page
     require('./index')(app);
-    require('./api/api')(app);
+    // client-side urls 
     require('./user')(app);
-    // require('./test')(app); // DEBUG: DELETE LATER
-
+    // admin-side urls
     const adminRouter = require('./admin')
     app.use('/admin', adminRouter)
+    // api
+    // require('./api/api')(app);  // deactivated for now
 }

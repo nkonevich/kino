@@ -1,9 +1,10 @@
 extends layout
+//- TODO: find a way to add more seats dynamically
 
 block layout-content
   h1.Banner Screen rooms
 
-  form(id="createScreenRoomForm" action="/api/screenrooms" method="POST")
+  form(id="createScreenRoomForm" action="/admin/screenrooms" method="POST")
     label(for="name") Name
     input(id="name" type="text" name="name")
     label(for="description") Description

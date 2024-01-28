@@ -38,7 +38,6 @@ module.exports = {
                 // find
                 foundObjects = await model.find().sort(sort)
             }
-            console.log(foundObjects)
             return foundObjects
         } catch (error) {
             // handle errors (see errors.js)

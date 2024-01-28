@@ -10,7 +10,7 @@ block layout-content
       p Email: #{n.email}
       p Orders: #{n.orders}
 
-  form(id="createMovieShowForm" action="/movieshows" method="POST")
+  form(id="createMovieShowForm" action="/admin/movieshows" method="POST")
     label(for="movieId") movieId
     input(id="movieId" type="text" name="movieId")
     label(for="screenRoomId") screenRoomId
