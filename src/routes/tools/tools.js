@@ -95,12 +95,26 @@ module.exports = {
         return newDateString
     },
 
-    checkAuthentication: async function (req, res, next) {
+    checkUserAuthentication: async function (req, res, next) {
         if(req.session.user) {
+            const { User } = require("../../models/userModel")
+            const { id } = req.params;
+            var user = await User.findById(id)
+            if(user.username == req.session.user) {
+                next()
+            } else {
+                res.redirect("/login");
+            }            
+        } else {
+            res.redirect("/login");
+        }
+    },
+
+    checkAdminAuthentication: async function (req, res, next) {
+        if(req.session.user && req.session.user == "admin") {
             next()
         } else {
-            res.setHeader("WWW-Authenticate", "Basic")
-            res.render("login");
+            res.redirect("/login");
         }
     },
 

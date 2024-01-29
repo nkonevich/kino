@@ -6,11 +6,6 @@ module.exports = function(app){
         res.render("login");
     });
 
-    app.get("/logout", (req, res) => {
-        req.session.destroy()
-        res.render("login", { alert: "Successfully logged out" });
-    });
-
     // login with existing user
     app.post("/login", async (req, res, next) => {
         if (!req.body.username || !req.body.password) {
@@ -26,11 +21,11 @@ module.exports = function(app){
         }
     });
 
-    // single user page
-    app.get("/users/:id", tools.checkAuthentication, async (req, res, next) => {
-        const user = await tools.getById( req, res, next, User )
-        res.status(200).render("user", { user: user })
-    })
+    // remove session (authentication cookies)
+    app.get("/logout", (req, res) => {
+        req.session.destroy()
+        res.render("login", { alert: "Successfully logged out" });
+    });
 
     // create new user
     app.post("/users", async (req, res, next) => {
@@ -43,8 +38,14 @@ module.exports = function(app){
         }
     });
 
+    // single user page
+    app.get("/users/:id", tools.checkUserAuthentication, async (req, res, next) => {
+        const user = await tools.getById( req, res, next, User )
+        res.status(200).render("user", { user: user })
+    })
+
     // update/delete user
-    app.post("/users/:id", async (req, res, next) => {
+    app.post("/users/:id", tools.checkUserAuthentication, async (req, res, next) => {
         switch ({ ...req.body }["_method"]) {
             case "delete":
                 const deletedObject = await tools.deleteData( req, res, next, User )

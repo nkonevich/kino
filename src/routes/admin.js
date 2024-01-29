@@ -7,11 +7,11 @@ const { MovieShow } = require("../models/movieShowModel");
 const { User } = require("../models/userModel");
 const { Order } = require("../models/orderModel");
 
-router.get("/", async (req, res, next) => {
+router.get("/", tools.checkAdminAuthentication, async (req, res, next) => {
     return res.status(200).render("admin/admin");
 });
 
-router.get("/screenrooms", async (req, res, next) => {
+router.get("/screenrooms", tools.checkAdminAuthentication, async (req, res, next) => {
     const foundObjects = await tools.getAll( req, res, next, ScreenRoom)
     return res.status(200).render("admin/screenrooms", {
         title: "Screen rooms",
@@ -19,7 +19,7 @@ router.get("/screenrooms", async (req, res, next) => {
     });
 });
 
-router.post("/screenrooms", async (req, res, next) => {
+router.post("/screenrooms", tools.checkAdminAuthentication, async (req, res, next) => {
     if ({ ...req.body }["_method"]) {
         switch ({ ...req.body }["_method"]) {
             case "delete":
@@ -39,14 +39,14 @@ router.post("/screenrooms", async (req, res, next) => {
     }
 });
 
-router.get("/movies", async (req, res, next) => {
+router.get("/movies", tools.checkAdminAuthentication, async (req, res, next) => {
     const foundObjects = await tools.getAll( req, res, next, Movie)
     res.status(200).render("admin/movies", {
         movies: foundObjects
     });
 });
 
-router.post("/movies", async (req, res, next) => {
+router.post("/movies", tools.checkAdminAuthentication, async (req, res, next) => {
     if ({ ...req.body }["_method"]) {
         switch ({ ...req.body }["_method"]) {
             case "delete":
@@ -80,7 +80,7 @@ router.post("/movies", async (req, res, next) => {
     }
 });
 
-router.get("/movieshows", async (req, res, next) => {
+router.get("/movieshows", tools.checkAdminAuthentication, async (req, res, next) => {
     const foundObjects = await tools.getAll( req, res, next, MovieShow)
     await MovieShow
         .populate(foundObjects, { 
@@ -91,7 +91,7 @@ router.get("/movieshows", async (req, res, next) => {
     });
 });
 
-router.post("/movieshows", async (req, res, next) => {
+router.post("/movieshows", tools.checkAdminAuthentication, async (req, res, next) => {
     if ({ ...req.body }["_method"]) {
         switch ({ ...req.body }["_method"]) {
             case "delete":
@@ -111,14 +111,14 @@ router.post("/movieshows", async (req, res, next) => {
     }
 });
 
-router.get("/orders", async (req, res, next) => {
+router.get("/orders", tools.checkAdminAuthentication, async (req, res, next) => {
     const foundObjects = await tools.getAll( req, res, next, Order)
     res.status(200).render("admin/orders", {
         orders: foundObjects
     });
 });
 
-router.post("/orders", async (req, res, next) => {
+router.post("/orders", tools.checkAdminAuthentication, async (req, res, next) => {
     if ({ ...req.body }["_method"]) {
         switch ({ ...req.body }["_method"]) {
             case "delete":
@@ -138,7 +138,7 @@ router.post("/orders", async (req, res, next) => {
     }
 });
 
-router.get("/users", async (req, res, next) => {
+router.get("/users", tools.checkAdminAuthentication, async (req, res, next) => {
     const foundObjects = await tools.getAll( req, res, next, User, "-password")
     return res.status(200).render("admin/users", {
         users: foundObjects
@@ -146,7 +146,7 @@ router.get("/users", async (req, res, next) => {
 });
 
 // update/delete user
-router.post("/admin/users", async (req, res, next) => {
+router.post("/admin/users", tools.checkAdminAuthentication, async (req, res, next) => {
     if ({ ...req.body }["_method"]) {
         switch ({ ...req.body }["_method"]) {
             case "delete":

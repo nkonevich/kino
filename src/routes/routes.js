@@ -10,5 +10,6 @@ module.exports = function(app){
     // api
     // require('./api/api')(app);  // deactivated for now
 
+    // TODO DELETE (debug code)
     require('./test')(app);
 }
