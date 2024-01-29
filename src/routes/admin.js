@@ -108,6 +108,7 @@ router.post("/movieshows/:id", tools.checkAdminAuthentication, async (req, res, 
             break;
         default:
             next(new SyntaxError("_method parameter not found"))
+    }
 });
 
 router.get("/orders", tools.checkAdminAuthentication, async (req, res, next) => {

@@ -3,7 +3,7 @@ module.exports = function(app){
     const { User } = require("../models/userModel");
 
     app.get("/test", tools.checkAdminAuthentication, async (req, res, next)=> {
-        res.send("ok")
+        res.render("test")
     })
 
     // app.get("/test", async (req, res, next)=> {
