@@ -22,9 +22,14 @@ block layout-content
         div 
             each n in movies
                 div
-                    p Name: #{n.name}
+                    p Name: #{n.movie.name}
                     img(
-                        src="data:"+n.image.contentType+";base64,"+n.image.data 
+                        src="data:"+n.movie.image.contentType+";base64,"+n.movie.image.data 
                         width="128" 
                         height="128"
                     )
+                    div.NavButtons
+                        form(id="deleteMoviesButton" action="/admin/movies/"+n.id, method="POST")
+                            input(type="hidden" name="_method" value="delete")
+                            a(href="javascript:;" onclick="document.getElementById('deleteMoviesButton').submit();")
+                                div.NavButton Delete Movie

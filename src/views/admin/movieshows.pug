@@ -6,19 +6,20 @@ block layout-content
 
   each n in movieshows
     div.UserBlock
-      p Name: #{n.name}
-      p Email: #{n.email}
-      p Orders: #{n.orders}
+      p Name: #{n.movie.name}
+      img(
+          src="data:"+n.movie.image.contentType+";base64,"+n.movie.image.data
+          width="128" 
+          height="128"
+          )
 
   form(id="createMovieShowForm" action="/admin/movieshows" method="POST")
     label(for="movieId") movieId
-    input(id="movieId" type="text" name="movieId")
+    input(id="movieId" type="text" name="movie")
     label(for="screenRoomId") screenRoomId
-    input(id="screenRoomId" type="text" name="screenRoomId")
+    input(id="screenRoomId" type="text" name="screenRoom")
     label(for="time") time
     input(id="time" type="text" name="time")
-    label(for="password") Password
-    input(id="password" type="text" name="password")
     input(type="submit" value="Submit")
 
   
