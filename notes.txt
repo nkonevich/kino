@@ -106,3 +106,7 @@ Dependencies
 in .pug
 
   pre.Details=JSON.stringify(movieshows, null, 2)
+
+https://www.mongodb.com/try/download/database-tools
+mongodump -d kino_db -o db_dump
+mongorestore -d kino_db db_dump/kino_db
