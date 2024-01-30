@@ -6,6 +6,7 @@ const path = require("path")
 const mongoose = require('mongoose')     // DB
 const fileupload = require("express-fileupload")
 const session = require('express-session')
+const cookieParser = require('cookie-parser')
 const MongoStore = require('connect-mongo')
 
 /**
@@ -22,25 +23,24 @@ const mongoURI = "mongodb://localhost:27017"
 // pug config
 app.set("views", path.join(__dirname, "src/views"))
 app.set("view engine", "pug")
-// expressjs config
-app.use(express.static(path.join(__dirname, "public")))
-// file upload
-app.use(fileupload())
 // bootstrap
 app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')))
 app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')))
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')))
-
+// file upload
+app.use(fileupload())
+// expressjs config
+app.use(express.static(path.join(__dirname, "public")))
 // parse application/json
 app.use(express.json( { extended: false } ))
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded( { extended: false } ))
 // user authentication with secret as param
+app.use(cookieParser())
 app.use(session({
-  secret: 'indiana jones is the best',
-  resave: true,
-  saveUninitialized: false,
-  maxAge: { maxAge: 24 * 60 * 60 * 1000 }, // 24 hours
+  secret: 'indiana jones is the best',  // a secret string used to sign the session ID cookie
+  resave: false, // don't save session if unmodified
+  saveUninitialized: false, // don't create session until something stored
   store: MongoStore.create({
     mongoUrl: mongoURI,
     collectionName: "sessions",

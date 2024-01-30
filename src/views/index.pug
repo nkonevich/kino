@@ -1,17 +1,12 @@
 extends layout
 block layout-content
-  header(class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom")
-    a(href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none")
-        svg(class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap")
-            use(xlink:href="#bootstrap")
-    ul(class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0")
-        li
-            a(href="/login" class="nav-link px-2 link-secondary") Login
-        li
-            a(href="/login" class="nav-link px-2 link-dark") Sign-up
 
+  div
+    section(id="cards" class="bg-faded py-2")
+        div(class="jumbotron w-100 py-5 mx-auto")
+          h1 Welcome to KINO
+          p(class="lead") Lorem ipsum sapientem ne neque dolor erat,eros solet invidunt duo Quisque aliquid leo. Pretium patrioque sociis eu nihil Cum enim ad, ipsum alii vidisse justo id. Option porttitor diam voluptua. Cu Eam augue dolor dolores quis, Nam aliquando elitr Etiam consetetur. Fringilla lucilius mel adipiscing rebum. Sit nulla Integer ad volumus, dicta scriptorem viderer lobortis est Utinam, enim commune corrumpit Aenean erat tellus. Metus sed amet dolore justo, gubergren sed. 
 
-  h1.Banner Movies
   div
     each n in movieshows
       div(class="media position-relative p-md-4 bg-light movieShowBlock")
@@ -21,3 +16,4 @@ block layout-content
           h5(class="mt-0") #{timeToString(n.time, "HH:mm DD-MM-YYYY")} 
           p #{n.movie.description} 
           a(href="/movieshows/"+n._id class="stretched-link") Book a ticket
+

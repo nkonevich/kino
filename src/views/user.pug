@@ -1,5 +1,4 @@
 extends layout
-
 block layout-content
     h1.Banner Howdy, #{user.name}!
     div.Message
@@ -16,8 +15,4 @@ block layout-content
         input(type="hidden" name="_method" value="delete")
         a(href="javascript:;" onclick="document.getElementById('deleteUserButton').submit();")
           div.NavButton Delete user
-      //- form(action=`/users/${id}`, method="post")
-      //-   div.DeleteButton
-      //-     input(type="hidden" name="_method" value="delete")
-      //-     input(type="submit" value="Delete user")
         

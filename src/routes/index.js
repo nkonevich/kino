@@ -1,6 +1,8 @@
 module.exports = function(app){
     const tools = require('./tools/tools');
+    const { User } = require("../models/userModel");
     const { MovieShow } = require("../models/movieShowModel");
+
 
     app.get("/", async (req, res, next)=> {
         // get list of movieshows, sort by time
@@ -10,10 +12,16 @@ module.exports = function(app){
             .populate(foundObjects, { 
                 path: 'movie screenRoom' 
             })
+
+        var authenticatedUser = null
+        if(req.session.user) {
+            authenticatedUser = await User.findOne({ username: req.session.user })
+        }  
         // render page
         res.render("index", { 
             movieshows: foundObjects,
-            timeToString: tools.formatString
+            timeToString: tools.formatString,
+            user: authenticatedUser
         });
     });
 }

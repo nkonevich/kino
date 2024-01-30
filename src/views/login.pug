@@ -1,32 +1,64 @@
 extends layout
-
 block layout-content
+
   if alert 
-    div(class="alert alert-warning" role="alert") #{alert}
-  div.View.LoginView
-    h1.Banner Please login
-    div.LoginContent
-      div.LoginBlock
-        div.LoginTitle
-          <h3>Login as existing user</h3>
-        div.LoginForm
-          form(id="loginForm" action="/login" method="POST")
-              label(for="username") Username
-              input(id="username" type="text" name="username")
-              label(for="password") Password
-              input(id="password" type="text" name="password")
-              input(type="submit" value="Submit")
-      div.LoginBlock
-        div.LoginTitle
-          <h3>Register a new user</h3>
-        div.LoginForm
-          form(id="registerForm" action="/users" method="POST")
-            label(for="name") Name
-            input(id="name" type="text" name="name")
-            label(for="username") Username
-            input(id="username" type="text" name="username")
-            label(for="email") Email
-            input(id="email" type="email" name="email")
-            label(for="password") Password
-            input(id="password" type="text" name="password")
-            input(type="submit" value="Submit")
+    div(class="alert-box warning" role="alert") #{alert}
+
+  div(class="container")
+    div(class="row")
+      div(class="col-sm")
+        div
+          h3 Login as existing user 
+          form(class="needs-validation" id="loginForm" novalidate action="/login" method="POST")
+            div(class="col-10")
+              label(for="username" class="form-label") Username
+              input(type="text" class="form-control" id="username" name="username" required)
+            div(class="col-10")
+              label(for="password" class="form-label") Password
+              input(type="text" class="form-control" id="password" name="password" required)
+            div(class="col-12")
+              button(class="btn btn-primary" type="submit") Submit
+      div(class="col-sm") 
+        div 
+          h3 Register a new user 
+          form(class="needs-validation" id="registerForm" novalidate action="/users" method="POST")
+            div(class="col-md-10")
+              label(for="name" class="form-label") Name
+              input(type="text" class="form-control" id="name" name="name" required)
+            div(class="col-md-10")
+              label(for="username" class="form-label") Username
+              input(type="text" class="form-control" id="username" name="username" required)
+            div(class="col-md-10")
+              label(for="email" class="form-label") Email
+              input(type="email" class="form-control" id="email" name="email" required)
+            div(class="col-md-10")
+              label(for="password" class="form-label") Password
+              input(type="text" class="form-control" id="password" name="password" required)
+            div(class="col-12")
+              button(class="btn btn-primary" type="submit") Submit
+
+  script. 
+    ((function () {
+      'use strict'
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation')
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })())
+
+  script.
+    ((function () {
+      $( "div.warning" ).fadeIn( 300 ).delay( 3000 ).fadeOut( 400 );
+    })())

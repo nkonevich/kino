@@ -110,3 +110,11 @@ in .pug
 https://www.mongodb.com/try/download/database-tools
 mongodump -d kino_db -o db_dump
 mongorestore -d kino_db db_dump/kino_db
+
+
+
+// novalidate to send data as url params
+form(id="myform" novalidate action="/" method="POST")
+    label(for="name") Name
+    input(type="text" id="name" name="name" required)
+    button(class="btn btn-primary" type="submit") Submit

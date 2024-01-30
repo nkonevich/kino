@@ -18,7 +18,7 @@ module.exports = {
                 res.status(200).send({ message: "id not found" })
             } else {
                 // return result
-                return foundObject
+                next(foundObject)
             }
         } catch (error) {
             // other errors. Handled in errors.js
@@ -96,17 +96,22 @@ module.exports = {
     },
 
     checkUserAuthentication: async function (req, res, next) {
-        if(req.session.user) {
-            const { User } = require("../../models/userModel")
-            const { id } = req.params;
-            var user = await User.findById(id)
-            if(user.username == req.session.user) {
-                next()
+        try {
+            console.log("checking auth")
+            if(req.session.user) {
+                const { User } = require("../../models/userModel")
+                const { id } = req.params;
+                const user = await User.findById(id)
+                if(user.username != req.session.user) {
+                    next(new Error("AccessDenied")) 
+                } else {
+                    next()
+                }            
             } else {
-                res.redirect("/login");
-            }            
-        } else {
-            res.redirect("/login");
+                res.status(200).redirect("/login");
+            }
+        } catch(error) {
+            next(error) 
         }
     },
 
@@ -116,7 +121,7 @@ module.exports = {
         } else {
             res.redirect("/login");
         }
-    },
+    }
 
     // checkLogin: async function (req, res, next) {
     //     if(!req.session.user) {

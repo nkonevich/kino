@@ -2,8 +2,17 @@ module.exports = function(app){
     const tools = require('./tools/tools');
     const { User } = require("../models/userModel");
 
-    app.get("/test", tools.checkAdminAuthentication, async (req, res, next)=> {
+    app.get("/test", async (req, res, next)=> {
+        // if (req.session.user) {
+        //     console.log("session found: "+req.session.user)
+        //     console.log("user id: "+req.session.user.id)
+        // } else {
+        //     console.log("session not found")
+        // }
         res.render("test")
+        // const session = req.session
+        // console.log(session)
+        // res.send("ok")
     })
 
     // app.get("/test", async (req, res, next)=> {
