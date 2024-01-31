@@ -1,35 +1,43 @@
 extends layout
 
 block layout-content
-  div.View.LoginView
-    h1.Banner Movies admin
-    div.LoginContent
-      div.LoginBlock
-        div.LoginTitle
-            h3 Create movie
-        div.LoginForm
-            form(id="newMovieForm" action="/admin/movies" method="POST" enctype="multipart/form-data")
-                label(for="name") Name
-                input(id="name" type="text" name="name")
-                label(for="description") Description
-                input(id="description" type="text" name="description")
-                label(for="image") Image
-                input(id="image" type="file" name="image")
-                input(type="submit" value="Submit")
-    div
-        div.LoginTitle
-            h3 All movies 
-        div 
-            each n in movies
-                div
-                    p Name: #{n.name}
-                    img(
-                        src="data:"+n.image.contentType+";base64,"+n.image.data 
-                        width="128" 
-                        height="128"
-                    )
-                    div.NavButtons
-                        form(id="deleteMoviesButton" action="/admin/movies/"+n.id, method="POST")
-                            input(type="hidden" name="_method" value="delete")
-                            a(href="javascript:;" onclick="document.getElementById('deleteMoviesButton').submit();")
-                                div.NavButton Delete Movie
+
+    div(class="container")
+        div(class="row d-flex justify-content-center")
+            div(class="col-md-6")
+
+            div(class="col-md-6")
+                h3 Create movie
+                form(id="newMovieForm" action="/admin/movies" method="POST" enctype="multipart/form-data")
+                    label(for="name") Name
+                    input(id="name" type="text" name="name")
+                    label(for="description") Description
+                    input(id="description" type="text" name="description")
+                    label(for="image") Image
+                    input(id="image" type="file" name="image")
+                    input(type="submit" value="Submit")
+    h3 All movies 
+    div(class="m-4")
+        table(class="table table-striped")
+            thead
+                tr  
+                    th Image
+                    th Name 
+                    th Description 
+                    th Actions
+            tbody 
+                each n in movies
+                    tr 
+                        td 
+                            img(
+                                src="data:"+n.image.contentType+";base64,"+n.image.data 
+                                width="128" 
+                                height="128"
+                            )
+                        td #{n.name}
+                        td #{n.description}
+
+                        td 
+                            form(id=n.id action="/admin/movies/"+n.id, method="POST")
+                                input(type="hidden" name="_method" value="delete")
+                                input(type="submit" class="btn btn-link" value="delete")

@@ -1,19 +1,28 @@
 module.exports = function(app){
     const tools = require('./tools/tools');
     const { User } = require("../models/userModel");
+    const { Order } = require("../models/orderModel");
 
     app.get("/test", async (req, res, next)=> {
-        // if (req.session.user) {
-        //     console.log("session found: "+req.session.user)
-        //     console.log("user id: "+req.session.user.id)
-        // } else {
-        //     console.log("session not found")
-        // }
-        res.render("test")
-        // const session = req.session
-        // console.log(session)
-        // res.send("ok")
+        const time = "00:00-01.01.2001"
+        const  timenew = tools.stringToDate(time)
+        console.log(timenew)
+        res.status(200).render('test');
     })
+
+    // app.get("/test", async (req, res, next)=> {
+    //     const foundObjects = await tools.getAll( req, res, next, User, "-password")
+        
+    //     foundObjects.forEach(async user => {
+    //         user.set(
+    //             {
+    //                 orders: await Order.find({user: user.id})
+    //             }
+    //         )
+    //     });
+    //     console.log(foundObjects)
+    //     res.status(200).json(foundObjects);
+    // })
 
     // app.get("/test", async (req, res, next)=> {
     //     if(!req.session.user) {

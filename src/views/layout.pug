@@ -15,7 +15,7 @@ html
       a(href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none")
         //- img(src="favicon.ico")
         div.Title
-          h3 KINO
+          h3 KINO | #{title}
       if user
         a(href="/users/"+user.id class="nav-link px-2 link-secondary") Profile
       else
@@ -25,7 +25,20 @@ html
   
     main
       div#root
-        block layout-content     
-  footer
+        block layout-content  
+         
+  footer(class="bg-info text-center text-lg-start fixed-bottom")
     script(src='/js/jquery.min.js')
     script(src='/js/bootstrap.bundle.min.js')
+
+    //- a(href="" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none")
+      div(class="container")
+    div(class="row d-flex justify-content-center")
+      table 
+        tr 
+          td 
+            a(href="/admin/login" class="nav-link px-2 link-secondary bold") Login as admin
+          td
+            a(href="/admin" class="nav-link px-2 link-secondary bold") Admin section
+
+          

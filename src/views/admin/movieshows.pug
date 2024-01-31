@@ -1,26 +1,53 @@
 extends layout
-
 block layout-content
-  h1.Banner Movieshows
 
+  div(class="container")
+    div(class="row d-flex justify-content-center")
+        div(class="col-md-6")
 
-  each n in movieshows
-    div.UserBlock
-      p Name: #{n.movie.name}
-      img(
-          src="data:"+n.movie.image.contentType+";base64,"+n.movie.image.data
-          width="128" 
-          height="128"
-          )
+        div(class="col-md-6")
+            h3 Create movie show
+            form(id="createMovieShowForm" action="/admin/movieshows" method="POST")
+              label(for="movie") movie
+              select#movie(name='movie')
+                each n in movies 
+                  option(value=n.id) #{n.name}
+              label(for="screenroom") screenroom
+              select#screenroom(name='screenRoom')
+                each n in screenrooms 
+                  option(value=n.id) #{n.name}
+              label(for="time") time, format: "00:00-01.01.2001"
+              input(type="text" name="time" placeholder="00:00-01.01.2001" pattern="[0-9]{2}:[0-9]{2}-[0-9]{2}.[0-9]{2}.[0-9]{4}")
+              input(type="submit" value="Submit")
 
-  form(id="createMovieShowForm" action="/admin/movieshows" method="POST")
-    label(for="movieId") movieId
-    input(id="movieId" type="text" name="movie")
-    label(for="screenRoomId") screenRoomId
-    input(id="screenRoomId" type="text" name="screenRoom")
-    label(for="time") time
-    input(id="time" type="text" name="time")
-    input(type="submit" value="Submit")
-
+  h3 All movie shows
+  div(class="m-4")
+      table(class="table table-striped")
+          thead
+              tr  
+                  th MovieImage
+                  th MovieName 
+                  th Screenroom 
+                  th Time
+                  th seatsAvailability
+                  th seatsPricing 
+                  th Actions
+          tbody 
+            each n in movieshows
+              tr 
+                td 
+                  img(
+                    src="data:"+n.movie.image.contentType+";base64,"+n.movie.image.data 
+                    width="128" 
+                    height="128"
+                  )
+                td #{n.movie.name}
+                td #{n.screenRoom.name}
+                td #{timeToString(n.time, "HH:mm DD-MM-YYYY")}
+                td seatsAvailability
+                td seatsPricing
+                td 
+                  form(id=n.id action="/admin/movies/"+n.id, method="POST")
+                      input(type="hidden" name="_method" value="delete")
+                      input(type="submit" class="btn btn-link" value="delete")
   
-        

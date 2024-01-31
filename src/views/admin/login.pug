@@ -1,0 +1,47 @@
+extends layout
+block layout-content
+
+  if alert 
+    div(class="alert-box warning" role="alert") #{alert}
+
+  div(class="container")
+    div(class="row")
+      div(class="col-sm")
+        div
+          h3 Login as existing user 
+          form(class="needs-validation" id="loginForm" novalidate action="/login" method="POST")
+            div(class="col-10")
+              label(for="username" class="form-label") Username
+              input(type="text" class="form-control" id="username" name="username" value="admin" required)
+            div(class="col-10")
+              label(for="password" class="form-label") Password
+              input(type="text" class="form-control" id="password" name="password" value="admin" required)
+            div(class="col-12")
+              button(class="btn btn-primary" type="submit") Submit
+      div(class="col-sm") 
+        
+  script. 
+    ((function () {
+      'use strict'
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation')
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })())
+
+  script.
+    ((function () {
+      $( "div.warning" ).fadeIn( 300 ).delay( 3000 ).fadeOut( 400 );
+    })())

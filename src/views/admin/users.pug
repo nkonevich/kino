@@ -1,10 +1,29 @@
 extends layout
 
 block layout-content
-  h1.Banner Users
-  each n in users
-    div.UserBlock
-      p Name: #{n.name}
-      p Email: #{n.email}
-      p Orders: #{n.orders}
-        
+
+  div(class="m-4")
+      table(class="table table-striped")
+          thead
+            tr  
+              th Id
+              th Username
+              th Name
+              th Email 
+              th Orders 
+              th Actions
+          tbody 
+            each n in users
+              tr 
+                td #{n.id}
+                td #{n.username}
+                td #{n.name}
+                td #{n.email}
+                td              
+                  p orders
+                  //- each order in getUserOrders(n.id)
+                  //-   p 
+                td 
+                  form(id=n.id action="/admin/users/"+n.id, method="POST")
+                      input(type="hidden" name="_method" value="delete")
+                      input(type="submit" class="btn btn-link" value="delete")

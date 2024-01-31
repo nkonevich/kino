@@ -95,6 +95,21 @@ module.exports = {
         return newDateString
     },
 
+    // DateToString: pattern "00:00-01.01.2001"
+    stringToDate: function ( dateString ) { 
+        console.log("executing stringToDate, string: "+dateString)
+        const dayjs = require('dayjs')
+        var customParseFormat = require('dayjs/plugin/customParseFormat')
+        dayjs.extend(customParseFormat)
+        // dayjs.extend(customParseFormat)
+        console.log(dateString)
+        const newDate = dayjs(
+            dateString, 
+            'HH:MM-DD.MM.YYYY').format('YYYY-MM-DDTHH:mm:ss') 
+        console.log("return: "+newDate)
+        return newDate
+    },
+
     checkUserAuthentication: async function (req, res, next) {
         try {
             console.log("checking auth")
@@ -120,6 +135,15 @@ module.exports = {
             next()
         } else {
             res.redirect("/login");
+        }
+    },
+
+    getOrdersByUserId: async function ( req, res, next, id ) {
+        try {
+            const foundObject = {orders: []}
+            next(foundObject)
+        } catch (error) {
+            next(error)
         }
     }
 

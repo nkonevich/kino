@@ -8,7 +8,7 @@ module.exports = function(app){
     const adminRouter = require('./admin')
     app.use('/admin', adminRouter)
     // api
-    // require('./api/api')(app);  // deactivated for now
+    require('./api/api')(app);
 
     // TODO DELETE (debug code)
     require('./test')(app);
