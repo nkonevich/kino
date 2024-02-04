@@ -18,7 +18,8 @@ module.exports = {
                 res.status(200).send({ message: "id not found" })
             } else {
                 // return result
-                next(foundObject)
+                return foundObject
+                // next(foundObject)
             }
         } catch (error) {
             // other errors. Handled in errors.js

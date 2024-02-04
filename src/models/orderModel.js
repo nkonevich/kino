@@ -7,6 +7,9 @@ const Seat = Schema({
   },
   number: {
     type: Number
+  },
+  type: {
+    type: String
   }
 })
 

@@ -84,7 +84,33 @@ router.get("/movieshows", tools.checkAdminAuthentication, async (req, res, next)
 });
 
 router.post("/movieshows", tools.checkAdminAuthentication, async (req, res, next) => {
-    req.body.time = tools.stringToDate(req.body.time)   
+    const screenroom = await ScreenRoom.findById(req.body.screenRoom)
+
+    req.body.time = tools.stringToDate(req.body.time)
+
+    const seatsPricing = [
+        { 
+            seatType: "Standard",
+            price: req.body.priceStandard 
+        },
+        { 
+            seatType: "Premium",
+            price: req.body.pricePremium 
+        }
+    ]
+    req.body.seatsPricing = seatsPricing 
+
+    const seatsAvailability = []
+    screenroom.seats.forEach(seat => {
+        seatsAvailability.push({
+            seatRow: seat.row,
+            seatNumber: seat.number,
+            seatType: seat.type,
+            available: true
+        })
+    });    
+    req.body.seatsAvailability = seatsAvailability
+
     const createdObject = await tools.postData( req, res, next, MovieShow )
     res.status(201).redirect("/admin/movieshows");
 });

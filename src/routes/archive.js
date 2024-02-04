@@ -326,3 +326,18 @@ module.exports = function(app){
 //         name: req.body.name
 //     }
 // })
+
+
+    //- let selectSeatButtons = document.getElementsByClassName("selectSeatButton"); 
+    //- elementsArray.forEach(elem => {
+    //-   elem.addEventListener("click", assignSeatSelected());
+    //- });
+    //- document.getElementById("demo").addEventListener("click", myFunction);
+
+    //- function() {
+    //-   let selectSeatButtons = document.getElementsByClassName("selectSeatButton");
+    //-   elementsArray.forEach(function(elem) {
+    //-       elem.addEventListener("input", assignSeatSelected());
+    //-   });
+    //-   alert("added listener")
+    //- }

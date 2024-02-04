@@ -1,25 +1,53 @@
 extends layout
 
 block layout-content
-  h1.Banner #{movieshow.movie.name} #{timeString}
-  div
-    form
-      each row in rows
-        div
-          each seat in movieshow.seatsAvailability
-            if seat.seatRow == row
-              if seat.available
-                input.SeatButton(type="button" value=seat.seatRow+seat.seatNumber)
-              else  
-                input.SeatButton(type="button" value=seat.seatRow+seat.seatNumber)
+  h1.Banner #{movieshow.movie.name} #{timeToString(movieshow.time, "HH:mm DD-MM-YYYY")} 
+  h2.m-4.text-center SCREEN
 
-  //- div 
-  //-   each row in rows
-  //-     div
-  //-       tr
-  //-         each seat in movieshow.seatsAvailability
-  //-           if seat.seatRow == row
-  //-             if seat.available
-  //-                 td.green= seat.seatRow
-  //-             else 
-  //-                 td.red= seat.seatRow
+  div.container-md
+    div.row.justify-content-center
+      form(id="createOrderForm" action="/orders" method="POST")
+        each row in rows
+          div.row.m-3.justify-content-center
+            each seat in movieshow.seatsAvailability
+              if seat.seatRow == row
+                if seat.available
+                  if seat.seatType == "Standard"
+                    input.btn.btn-success.m-1.selectSeatButton(
+                      id="seat"+seat.seatRow+seat.seatNumber
+                      type="button" 
+                      onclick="assignSeatSelected('"+seat.seatRow+"', '"+seat.seatNumber+"', '"+seat.seatType+"')"
+                      value=seat.seatRow+seat.seatNumber
+                      )
+                  else
+                    input.btn.btn-info.m-1.selectSeatButton(
+                      id="seat"+seat.seatRow+seat.seatNumber
+                      type="button" 
+                      onclick="assignSeatSelected('"+seat.seatRow+"', '"+seat.seatNumber+"', '"+seat.seatType+"')"
+                      value=seat.seatRow+seat.seatNumber
+                    )
+                else  
+                  input.btn.btn-danger.m-1(
+                    type="button" 
+                    disabled 
+                    value=seat.seatRow+seat.seatNumber
+                    )
+
+        input(type="hidden" name="movieshow" value=movieshow.id)
+        input(id="seatSelectedRow" type="hidden" name="seatRow" value="")
+        input(id="seatSelectedNumber" type="hidden" name="seatNumber" value="")
+        input(id="seatSelectedType" type="hidden" name="seatType" value="")
+
+        div.container-md
+          div.row.m-5.justify-content-center
+            if user
+              button(class="btn btn-primary" type="submit") Submit
+            else 
+              h5 !Please login first
+
+  script.
+    function assignSeatSelected(row, num, type) {
+      document.getElementById("seatSelectedRow").value = row
+      document.getElementById("seatSelectedNumber").value = num
+      document.getElementById("seatSelectedType").value = type
+    }

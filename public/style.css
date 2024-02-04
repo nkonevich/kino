@@ -259,7 +259,6 @@ form[id=registerForm] {
   color: #fff;
   text-shadow: 1px 1px 1px #000;
   border-radius: 10px;
-  background-color: rgb(220 0 0 / 100%);
   background-image: linear-gradient(
     to top left,
     rgb(0 0 0 / 20%),
@@ -271,14 +270,26 @@ form[id=registerForm] {
     inset -2px -2px 3px rgb(0 0 0 / 60%);
 }
 
-.SeatButton:hover {
-  background-color: rgb(255 0 0 / 100%);
-}
-
 .SeatButton:active {
   box-shadow:
     inset -2px -2px 3px rgb(255 255 255 / 60%),
     inset 2px 2px 3px rgb(0 0 0 / 60%);
+}
+
+.SeatButtonAvailable {
+  background-color: rgb(79, 241, 51);
+}
+
+.SeatButtonAvailable:hover {
+  background-color: rgb(44, 186, 56);
+}
+
+.SeatButtonBooked {
+  background-color: rgb(255 0 0 / 100%);
+}
+
+.SeatButtonBooked:hover {
+  background-color: rgb(255 0 0 / 100%);
 }
 
 .movieShowBlock {
@@ -328,4 +339,11 @@ img {
 
 .Title {
   margin-left: 2em;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

@@ -8,6 +8,9 @@ const SeatsAvailabilityShema = Schema({
   seatNumber: {
     type: Number
   },
+  seatType: {
+    type: String
+  },
   available: {
     type: Boolean,
     default: true

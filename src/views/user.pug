@@ -11,11 +11,33 @@ block layout-content
       //- pre.Details=JSON.stringify(user, null, 2)
       div.m-5.d-flex.flex-wrap.align-items-left.justify-content-left
         a(href="/logout")
-          div.NavButton Log out
+          div.NavButton.m-2 Log out
         form(id="deleteUserButton" action=`/users/${user.id}`, method="POST")
           input(type="hidden" name="_method" value="delete")
           a(href="javascript:;" onclick="document.getElementById('deleteUserButton').submit();")
-            div.NavButton Delete user
+            div.NavButton.m-2 Delete user
         div(class="m-4")
+    div.m-5
+      h1 Orders
+      div(class="m-4")
+      table(class="table table-striped")
+        thead
+          tr  
+            th Time
+            th Movie 
+            th Screen room
+            th Seat 
+            th Price
+        tbody 
+          each n in orders
+            tr 
+              td #{timeToString(n.movieShow.time, "HH:mm DD-MM-YYYY")}
+              td #{n.movieShow.movie.name}
+              td #{n.movieShow.screenRoom.name}
+              td #{n.seat.row}#{n.seat.number}
+              td #{n.price}
+              td 
+                form(id=n.id action="/admin/movies/"+n.id, method="POST")
+                  input(type="hidden" name="_method" value="delete")
+                  input(type="submit" class="btn btn-link" value="Cancel")
 
-    h1 Orders

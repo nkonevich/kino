@@ -1,5 +1,10 @@
+const { MovieShow } = require("../models/movieShowModel")
+
 module.exports = function(app){
     const { User } = require("../models/userModel")
+    const { Order } = require("../models/orderModel")
+    const { Movie } = require("../models/movieModel")
+    const { ScreenRoom } = require("../models/screenRoomModel")
     const tools = require('./tools/tools');
 
     app.get("/login", (req, res) => {
@@ -13,6 +18,7 @@ module.exports = function(app){
             res.status(200).render("login", { alert: "The provided user credentials were not found" })
         } else {
             req.session.user=user.username
+            req.session.userId=user.id
             res.status(200).redirect("/users/"+user.id);
         }
     });
@@ -40,7 +46,29 @@ module.exports = function(app){
             const { id } = req.params
             const user = await User.findById(id)
             if (user){
-                res.status(200).render("user", { user: user })
+                const orders = await Order.find({user: id})
+                    .populate({
+                        path: 'movieShow',
+                        select: 'movie time screenRoom',
+                        populate: [
+                            {
+                                path: 'screenRoom',
+                                model: ScreenRoom,
+                                select: 'name'
+                            },
+                            {
+                                path: 'movie',
+                                model: Movie,
+                                select: 'name'
+                            }
+                        ]
+                    })
+                    
+                res.status(200).render("user", { 
+                    user: user,
+                    orders: orders,
+                    timeToString: tools.formatString,
+                })
             } else {
                 next(new MongooseError("id not found"))
             }

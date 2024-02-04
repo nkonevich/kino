@@ -18,6 +18,10 @@ block layout-content
                   option(value=n.id) #{n.name}
               label(for="time") time, format: "00:00-01.01.2001"
               input(type="text" name="time" placeholder="00:00-01.01.2001" pattern="[0-9]{2}:[0-9]{2}-[0-9]{2}.[0-9]{2}.[0-9]{4}")
+              label(for="price") Price standard seat
+              input(type="text" name="priceStandard")
+              label(for="price") Price premium seat
+              input(type="text" name="pricePremium")
               input(type="submit" value="Submit")
 
   h3 All movie shows
@@ -44,8 +48,15 @@ block layout-content
                 td #{n.movie.name}
                 td #{n.screenRoom.name}
                 td #{timeToString(n.time, "HH:mm DD-MM-YYYY")}
-                td seatsAvailability
-                td seatsPricing
+                td 
+                  each seat in n.seatsAvailability
+                    if seat.available
+                      p #{seat.seatRow}#{seat.seatNumber} available
+                    else 
+                      p #{seat.seatRow}#{seat.seatNumber} booked
+                td 
+                  each type in n.seatsPricing
+                    p #{type.seatType} $#{type.price}
                 td 
                   form(id=n.id action="/admin/movies/"+n.id, method="POST")
                       input(type="hidden" name="_method" value="delete")

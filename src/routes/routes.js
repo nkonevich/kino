@@ -4,6 +4,8 @@ module.exports = function(app){
     require('./index')(app);
     // client-side urls 
     require('./user')(app);
+    require('./movieshow')(app);
+    require('./order')(app);
     // admin-side urls
     const adminRouter = require('./admin')
     app.use('/admin', adminRouter)
