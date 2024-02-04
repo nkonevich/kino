@@ -1,6 +1,5 @@
 extends layout
 block layout-content
-    h1.Banner Howdy, #{user.name}!
     div.Message
       div.Title
         h1 User Profile
@@ -37,7 +36,7 @@ block layout-content
               td #{n.seat.row}#{n.seat.number}
               td #{n.price}
               td 
-                form(id=n.id action="/admin/movies/"+n.id, method="POST")
+                form(id=n.id action="/orders/"+n.id, method="POST")
                   input(type="hidden" name="_method" value="delete")
-                  input(type="submit" class="btn btn-link" value="Cancel")
+                  input.btn.btn-danger(type="submit" value="Cancel order")
 

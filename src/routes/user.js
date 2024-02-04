@@ -65,6 +65,7 @@ module.exports = function(app){
                     })
                     
                 res.status(200).render("user", { 
+                    title: "User",
                     user: user,
                     orders: orders,
                     timeToString: tools.formatString,
