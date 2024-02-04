@@ -131,10 +131,29 @@ router.post("/movieshows/:id", tools.checkAdminAuthentication, async (req, res, 
 });
 
 router.get("/orders", tools.checkAdminAuthentication, async (req, res, next) => {
-    const foundObjects = await tools.getAll( req, res, next, Order)
+    const orders = await Order.find()
+                    .populate('user')
+                    .populate({
+                        path: 'movieShow',
+                        select: 'movie time screenRoom',
+                        populate: [
+                            {
+                                path: 'screenRoom',
+                                model: ScreenRoom,
+                                select: 'name'
+                            },
+                            {
+                                path: 'movie',
+                                model: Movie,
+                                select: 'name'
+                            }
+                        ]
+                    })
+
     res.status(200).render("admin/orders", {
-        orders: foundObjects,
-        title: "admin | Orders"
+        title: "admin | Orders",
+        orders: orders,
+        timeToString: tools.formatString,
     });
 });
 

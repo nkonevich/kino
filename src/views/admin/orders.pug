@@ -1,4 +1,26 @@
 extends layout
 
 block layout-content
-  pre.Details=JSON.stringify(orders, null, 2)
+  div.m-5
+    div(class="m-4")
+    table(class="table table-striped")
+      thead
+        tr  
+          th Created at
+          th Show time
+          th Movie 
+          th Screen room
+          th Seat 
+          th Price
+          th Username
+      tbody 
+        each n in orders
+          tr 
+            td #{timeToString(n.createdAt, "HH:mm DD-MM-YYYY")}
+            td #{timeToString(n.movieShow.time, "HH:mm DD-MM-YYYY")}
+            td #{n.movieShow.movie.name}
+            td #{n.movieShow.screenRoom.name}
+            td #{n.seat.row}#{n.seat.number}
+            td $#{n.price}
+            td #{n.user.username}
+
