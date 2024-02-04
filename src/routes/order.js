@@ -33,4 +33,19 @@ module.exports = function(app){
         res.status(201).redirect("/users/"+req.session.userId)
     });
 
+    app.post("/orders/:id", async (req, res, next) => {
+        switch ({ ...req.body }["_method"]) {
+            case "delete":
+                const deletedObject = await tools.deleteData( req, res, next, Order )
+                res.status(201).redirect("/users/"+req.session.userId)
+                break;
+            case "put":
+                const updatedObject = await tools.putData( req, res, next, Order )
+                res.status(201).redirect("/users/"+req.session.userId);
+                break;
+            default:
+                next(new SyntaxError("_method parameter not found"))
+        }
+    });
+
 }
