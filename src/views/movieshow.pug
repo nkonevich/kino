@@ -16,14 +16,14 @@ block layout-content
                     input.btn.btn-success.m-1.selectSeatButton(
                       id="seat"+seat.seatRow+seat.seatNumber
                       type="button" 
-                      onclick="assignSeatSelected('"+seat.seatRow+"', '"+seat.seatNumber+"', '"+seat.seatType+"')"
+                      onclick="assignSeatSelected('"+seat.seatRow+"', '"+seat.seatNumber+"', '"+seat.seatType+"', '"+seat._id+"')"
                       value=seat.seatRow+seat.seatNumber
                       )
                   else
                     input.btn.btn-info.m-1.selectSeatButton(
                       id="seat"+seat.seatRow+seat.seatNumber
                       type="button" 
-                      onclick="assignSeatSelected('"+seat.seatRow+"', '"+seat.seatNumber+"', '"+seat.seatType+"')"
+                      onclick="assignSeatSelected('"+seat.seatRow+"', '"+seat.seatNumber+"', '"+seat.seatType+"', '"+seat._id+"')"
                       value=seat.seatRow+seat.seatNumber
                     )
                 else  
@@ -37,6 +37,7 @@ block layout-content
         input(id="seatSelectedRow" type="hidden" name="seatRow" value="")
         input(id="seatSelectedNumber" type="hidden" name="seatNumber" value="")
         input(id="seatSelectedType" type="hidden" name="seatType" value="")
+        input(id="seatSelectedId" type="hidden" name="seatId" value="")
 
         div.container-md
           div.row.m-5.justify-content-center
@@ -45,9 +46,23 @@ block layout-content
             else 
               h5 !Please login first
 
+  
+  div.container-md
+    div.row.justify-content-left
+      
+      each n in movieshow.seatsPricing
+        if n.seatType == "Standard"
+          button.btn.btn-success.m-1(type="button" disabled) $#{n.price} (#{n.seatType})
+        else 
+          button.btn.btn-info.m-1(type="button" disabled) $#{n.price} (#{n.seatType})
+      button.btn.btn-danger.m-1(type="button" disabled) Unavailable
+
+  div.container-md.m-4
+
   script.
-    function assignSeatSelected(row, num, type) {
+    function assignSeatSelected(row, num, type, id) {
       document.getElementById("seatSelectedRow").value = row
       document.getElementById("seatSelectedNumber").value = num
       document.getElementById("seatSelectedType").value = type
+      document.getElementById("seatSelectedId").value = id
     }

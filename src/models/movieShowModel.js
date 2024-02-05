@@ -69,8 +69,19 @@ MovieShowSchema.methods.updatePrice = function(seatType, price) {
   // this.save(cb)
 };
 
+
+MovieShowSchema.methods.setAvailability = async function(seatId, available) {
+
+  await MovieShow.findOneAndUpdate(
+    { "_id": this.id, "seatsAvailability._id": seatId },
+    { 
+        "$set": {
+            "seatsAvailability.$.available": available
+        }
+    }
+  );
+
+};
+
 const MovieShow = mongoose.model('MovieShow', MovieShowSchema);
-
-
-
 module.exports = { MovieShow };

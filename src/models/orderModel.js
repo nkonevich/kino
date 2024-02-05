@@ -10,6 +10,9 @@ const Seat = Schema({
   },
   type: {
     type: String
+  },
+  seatsAvailabilityId: {
+    type: String
   }
 })
 

@@ -1,12 +1,28 @@
+const { MovieShow } = require('../models/movieShowModel');
+
 module.exports = function(app){
     const tools = require('./tools/tools');
     const { User } = require("../models/userModel");
     const { Order } = require("../models/orderModel");
+    const { MovieShow } = require("../models/movieShowModel");
 
     app.get("/test", async (req, res, next)=> {
-        const time = "00:00-01.01.2001"
-        const  timenew = tools.stringToDate(time)
-        console.log(timenew)
+        const movieSowId = "65bff52ea4a2e59a9e6b94c3"
+        const seatId = "65bff52ea4a2e59a9e6b94c4"
+
+
+        const movieShow = await MovieShow.findById(movieSowId)
+        console.log(movieShow.setAvailability(seatId, false))
+
+        // const movieshow = await MovieShow.findById("65bff52ea4a2e59a9e6b94c3")
+        // const price = movieshow.seatsPricing.find(item => {
+        //         return item.seatType == req.body.seatType
+        //     }).price
+        // const
+
+        // console.log(movieshow)
+        // const doc = movieshow.seatsAvailability[1];
+        // console.log(doc)
         res.status(200).render('test');
     })
 
