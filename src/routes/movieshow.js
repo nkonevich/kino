@@ -24,7 +24,8 @@ module.exports = function(app){
             authenticatedUser = await User.findById( req.session.userId )
         }  
 
-        return res.status(200).render("movieShow", { 
+        return res.status(200).render("movieShow", {
+            title: "movie show", 
             movieshow: movieshow, 
             rows: rows,
             timeToString: tools.formatString,
