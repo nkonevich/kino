@@ -8,7 +8,7 @@ module.exports = function(app){
     const tools = require('./tools/tools');
 
     app.get("/login", (req, res) => {
-        res.render("login");
+        res.status(200).render("login")
     });
 
     // login with existing user

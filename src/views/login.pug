@@ -1,9 +1,6 @@
 extends layout
 block layout-content
 
-  if alert 
-    div.alert-box.warning(role="alert") #{alert}
-
   div(class="container")
     div(class="row")
       div(class="col-sm")
@@ -37,7 +34,7 @@ block layout-content
             div(class="col-12")
               button(class="btn btn-primary" type="submit") Submit
 
-  script. 
+  script.
     ((function () {
       'use strict'
 
@@ -56,9 +53,4 @@ block layout-content
             form.classList.add('was-validated')
           }, false)
         })
-    })())
-
-  script.
-    ((function () {
-      $( "div.warning" ).fadeIn( 300 ).delay( 3000 ).fadeOut( 400 );
     })())

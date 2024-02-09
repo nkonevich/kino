@@ -10,6 +10,7 @@ html
     link(rel='stylesheet' href='/css/bootstrap.min.css')
     link(rel="stylesheet" href="/style.css")
 
+
   body
     header(class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom")
       a(href="/" class="d-flex align-items-center col-md-4 mb-2 mb-md-0 text-dark text-decoration-none")
@@ -28,6 +29,9 @@ html
   
     main
       div#root
+        if alert 
+          div.alert.alert-primary(role="alert") #{alert}
+          
         block layout-content  
          
   footer(class="bg-info text-center text-lg-start fixed-bottom")
@@ -35,4 +39,7 @@ html
     script(src='/js/bootstrap.bundle.min.js')
 
 
-          
+    script.
+      $( document ).ready(function() {
+        $( "div.alert" ).fadeIn( 300 ).delay( 3000 ).fadeOut( 400 )
+      });
