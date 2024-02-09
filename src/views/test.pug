@@ -1,0 +1,21 @@
+extends layout
+block layout-content
+
+  - var movieId = "65bff4c0a4a2e59a9e6b9472"
+
+    p
+      button.btn.btn-primary.m-4(type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse") Edit
+    div(class="collapse" id="collapse")
+      div(class="card card-body") 
+        div(class="col-md-6")
+          h4 Edit movie
+          form(id="editMovie"+movieId action="/admin/movies/"+movieId method="POST" enctype="multipart/form-data")
+            label(for="name") Name
+            input(id="name" type="text" name="name")
+            label(for="description") Description
+            input(id="description" type="text" name="description")
+            label(for="image") Image
+            div.mb-4
+              input(id="image" type="file" name="image")
+            input(type="hidden" name="_method" value="put")
+            input.btn.btn-primary(type="submit" value="Submit")
