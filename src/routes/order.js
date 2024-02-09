@@ -5,12 +5,6 @@ module.exports = function(app){
     const { Order } = require("../models/orderModel")
     const { User } = require("../models/userModel")
 
-
-    app.get("/orders/:id", async (req, res, next) => {
-        const order = await tools.getById(req, res, next, Order)
-        res.status(200).json(order);
-    });
-
     app.post("/orders", async (req, res, next) => {
         const movieshow = await MovieShow.findById(req.body.movieshow)
         const price = movieshow.seatsPricing.find(item => {

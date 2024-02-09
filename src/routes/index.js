@@ -15,13 +15,14 @@ module.exports = function(app){
 
         var authenticatedUser = null
         if(req.session.user) {
-            authenticatedUser = await User.findOne({ username: req.session.user })
+            authenticatedUser =  await User.findById( req.session.userId )
         }  
         // render page
         res.render("index", { 
+            user: authenticatedUser,
+            userIsAdmin: tools.userIsAdmin(req, res, next),
             movieshows: foundObjects,
             timeToString: tools.formatString,
-            user: authenticatedUser
         });
     });
 }

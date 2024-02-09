@@ -8,17 +8,20 @@ const { User } = require("../models/userModel");
 const { Order } = require("../models/orderModel");
 
 router.get("/", tools.checkAdminAuthentication, async (req, res, next) => {
-    return res.status(200).render("admin/admin");
-});
 
-router.get("/login", async (req, res, next) => {
-    return res.status(200).render("admin/login");
+    return res.status(200).render("admin/admin", { 
+        title: "Admin", 
+        user: tools.getAuthenticatedUser(req, res, next),
+        userIsAdmin: tools.userIsAdmin(req, res, next),
+    });
 });
 
 router.get("/screenrooms", tools.checkAdminAuthentication, async (req, res, next) => {
     const foundObjects = await tools.getAll( req, res, next, ScreenRoom)
     return res.status(200).render("admin/screenrooms", {
-        title: "admin | Screen rooms",
+        title: "Admin | Screen rooms",
+        user: tools.getAuthenticatedUser(req, res, next),
+        userIsAdmin: tools.userIsAdmin(req, res, next),
         screenRooms: foundObjects
     });
 });
@@ -26,8 +29,10 @@ router.get("/screenrooms", tools.checkAdminAuthentication, async (req, res, next
 router.get("/movies", tools.checkAdminAuthentication, async (req, res, next) => {
     const foundObjects = await tools.getAll( req, res, next, Movie)
     res.status(200).render("admin/movies", {
+        title: "Admin | Movies",
+        user: tools.getAuthenticatedUser(req, res, next),
+        userIsAdmin: tools.userIsAdmin(req, res, next),
         movies: foundObjects,
-        title: "admin | Movies",
     });
 });
 
@@ -75,7 +80,9 @@ router.get("/movieshows", tools.checkAdminAuthentication, async (req, res, next)
     const screenrooms = await tools.getAll( req, res, next, ScreenRoom)
 
     return res.status(200).render("admin/movieshows", {
-        title: "admin | Movie shows",
+        title: "Admin | Movie shows",
+        user: tools.getAuthenticatedUser(req, res, next),
+        userIsAdmin: tools.userIsAdmin(req, res, next),
         movieshows: movieshows,
         movies: movies,
         screenrooms: screenrooms,
@@ -151,7 +158,9 @@ router.get("/orders", tools.checkAdminAuthentication, async (req, res, next) => 
                     })
 
     res.status(200).render("admin/orders", {
-        title: "admin | Orders",
+        title: "Admin | Orders",
+        user: tools.getAuthenticatedUser(req, res, next),
+        userIsAdmin: tools.userIsAdmin(req, res, next),
         orders: orders,
         timeToString: tools.formatString,
     });
@@ -202,6 +211,9 @@ router.get("/users", tools.checkAdminAuthentication, async (req, res, next) => {
     // console.log(req.body)
 
     res.status(200).render("admin/users", {
+        title: "Admin | Users",
+        user: tools.getAuthenticatedUser(req, res, next),
+        userIsAdmin: tools.userIsAdmin(req, res, next),
         users: foundObjects,
         title: "admin | Users"
     });

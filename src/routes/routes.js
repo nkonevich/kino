@@ -11,7 +11,4 @@ module.exports = function(app){
     app.use('/admin', adminRouter)
     // api
     require('./api/api')(app);
-
-    // TODO DELETE (debug code)
-    require('./test')(app);
 }

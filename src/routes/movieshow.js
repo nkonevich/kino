@@ -26,10 +26,11 @@ module.exports = function(app){
 
         return res.status(200).render("movieShow", {
             title: "movie show", 
+            user: authenticatedUser,
+            userIsAdmin: tools.userIsAdmin(req, res, next),
             movieshow: movieshow, 
             rows: rows,
             timeToString: tools.formatString,
-            user: authenticatedUser
         });
     });
 

@@ -67,6 +67,7 @@ module.exports = function(app){
                 res.status(200).render("user", { 
                     title: "User",
                     user: user,
+                    userIsAdmin: tools.userIsAdmin(req, res, next),
                     orders: orders,
                     timeToString: tools.formatString,
                 })

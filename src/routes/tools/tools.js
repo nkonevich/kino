@@ -146,6 +146,27 @@ module.exports = {
         } catch (error) {
             next(error)
         }
+    },
+
+    getAuthenticatedUser: async function ( req, res, next ) {
+        const { User } = require("../../models/userModel");
+        try {
+            return req.session.user ? await User.findById( req.session.userId ) : null
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    userIsAdmin: function ( req, res, next ) {
+        try {
+            if(req.session.user && req.session.user == "admin") {
+                return true
+            } else {
+                return false
+            }
+        } catch (error) {
+            next(error)
+        }
     }
 
     // checkLogin: async function (req, res, next) {
