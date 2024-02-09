@@ -8,20 +8,17 @@ block layout-content
               th Id
               th Username
               th Name
-              th Email 
-              th Orders 
+              th Email  
               th Actions
           tbody 
             each n in users
               tr 
-                td #{n.id}
+                td 
+                  a(href="/admin/users/"+n.id) #{n.id}
                 td #{n.username}
                 td #{n.name}
-                td #{n.email}
-                td              
-                  p orders
-                  //- each order in getUserOrders(n.id)
-                  //-   p 
+                td #{n.email} 
+
                 td 
                   form(id=n.id action="/admin/users/"+n.id, method="POST")
                       input(type="hidden" name="_method" value="delete")

@@ -11,7 +11,7 @@ router.get("/", tools.checkAdminAuthentication, async (req, res, next) => {
 
     return res.status(200).render("admin/admin", { 
         title: "Admin", 
-        user: tools.getAuthenticatedUser(req, res, next),
+        user: await tools.getAuthenticatedUser(req, res, next),
         userIsAdmin: tools.userIsAdmin(req, res, next),
     });
 });
@@ -233,6 +233,50 @@ router.post("/users/:id", tools.checkAdminAuthentication, async (req, res, next)
                 break;
             default:
                 next(new SyntaxError("_method parameter not found"))
+        }
+    } catch (error) {
+        next(error)
+    }
+});
+
+router.get("/users/:id", tools.checkAdminAuthentication, async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const user = await User.findById(id)
+        if (user){
+            const orders = await Order.find({user: id})
+                .populate({
+                    path: 'movieShow',
+                    select: 'movie time screenRoom',
+                    populate: [
+                        {
+                            path: 'screenRoom',
+                            model: ScreenRoom,
+                            select: 'name'
+                        },
+                        {
+                            path: 'movie',
+                            model: Movie,
+                            select: 'name'
+                        }
+                    ]
+                })
+        
+            var authenticatedUser = null
+            if(req.session.user) {
+                authenticatedUser =  await User.findById( req.session.userId )
+            }  
+
+            res.status(200).render("admin/user", { 
+                title: "Admin | User",
+                user: authenticatedUser,
+                userIsAdmin: tools.userIsAdmin(req, res, next),
+                orders: orders,
+                userOrders: await User.findById( id ),
+                timeToString: tools.formatString,
+            })
+        } else {
+            next(new MongooseError("id not found"))
         }
     } catch (error) {
         next(error)

@@ -1,0 +1,35 @@
+extends ../layout
+block layout-content
+
+    div.Message
+      div.Title
+        h1 User Profile
+
+        h5 Name: #{userOrders.name}
+        h5 Username: #{userOrders.username}
+        h5 Email: #{userOrders.email}
+
+    div.m-5
+      h1 Orders
+      div(class="m-4")
+      table(class="table table-striped")
+        thead
+          tr  
+            th Time
+            th Movie 
+            th Screen room
+            th Seat 
+            th Price
+        tbody 
+          each n in orders
+            tr 
+              td #{timeToString(n.movieShow.time, "HH:mm DD-MM-YYYY")}
+              td #{n.movieShow.movie.name}
+              td #{n.movieShow.screenRoom.name}
+              td #{n.seat.row}#{n.seat.number}
+              td #{n.price}
+              td 
+                form(id=n.id action="/orders/"+n.id, method="POST")
+                  input(type="hidden" name="_method" value="delete")
+                  input.btn.btn-danger(type="submit" value="Cancel order")
+
