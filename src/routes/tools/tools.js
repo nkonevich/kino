@@ -151,7 +151,11 @@ module.exports = {
     getAuthenticatedUser: async function ( req, res, next ) {
         const { User } = require("../../models/userModel");
         try {
-            return req.session.user ? await User.findById( req.session.userId ) : null
+            var authenticatedUser = null
+            if(req.session.user) {
+                authenticatedUser =  await User.findById( req.session.userId )
+            }
+            return authenticatedUser
         } catch (error) {
             next(error)
         }

@@ -11,7 +11,7 @@ router.get("/", tools.checkAdminAuthentication, async (req, res, next) => {
 
     return res.status(200).render("admin/admin", { 
         title: "Admin", 
-        user: await tools.getAuthenticatedUser(req, res, next),
+        user: tools.getAuthenticatedUser(req, res, next),
         userIsAdmin: tools.userIsAdmin(req, res, next),
     });
 });
@@ -199,27 +199,6 @@ router.post("/orders/:id", tools.checkAdminAuthentication, async (req, res, next
 
 router.get("/users", tools.checkAdminAuthentication, async (req, res, next) => {
     const foundObjects = await tools.getAll( req, res, next, User, "-password")
-    // foundObjects.aggregate( [
-    //     {
-    //         $addFields: {
-    //             orders: []
-    //         }
-    //     }
-    // ] )
-    // foundObjects.forEach(function(user) {
-    //     const aggregate = User.aggregate({ $addFields: { orders: []}})
-    //     console.log(user)
-    //     console.log(aggregate)
-    //     // user.AggregateputData({ orders: [] })
-    //     // console.log(user)
-    // })
-    // user.push({ orders: [] })
-
-    // req.body.users.forEach(function(user) {
-    //     user.push({ orders: [] })
-    // })
-
-    // console.log(req.body)
 
     res.status(200).render("admin/users", {
         title: "Admin | Users",
@@ -272,15 +251,10 @@ router.get("/users/:id", tools.checkAdminAuthentication, async (req, res, next) 
                         }
                     ]
                 })
-        
-            var authenticatedUser = null
-            if(req.session.user) {
-                authenticatedUser =  await User.findById( req.session.userId )
-            }  
 
             res.status(200).render("admin/user", { 
                 title: "Admin | User",
-                user: authenticatedUser,
+                user: tools.getAuthenticatedUser(req, res, next),
                 userIsAdmin: tools.userIsAdmin(req, res, next),
                 orders: orders,
                 userOrders: await User.findById( id ),
