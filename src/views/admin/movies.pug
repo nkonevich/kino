@@ -9,12 +9,14 @@ block layout-content
                 h3 Create movie
                 form(id="newMovieForm" action="/admin/movies" method="POST" enctype="multipart/form-data")
                     label(for="name") Name
-                    input(id="name" type="text" name="name")
+                    input(type="text" name="name")
                     label(for="description") Description
-                    input(id="description" type="text" name="description")
+                    textarea.form-control(rows="3" name="description")
                     label(for="image") Image
-                    input(id="image" type="file" name="image")
-                    input(type="submit" value="Submit")
+                    div.mb-4
+                        input(type="file" name="image")
+                    input(type="hidden" name="_method" value="put")
+                    input.btn.btn-primary(type="submit" value="Submit")
     h3 All movies 
     div(class="m-4")
         table(class="table table-striped")
@@ -35,8 +37,31 @@ block layout-content
                             )
                         td #{n.name}
                         td #{n.description}
+                            div(class="collapse" id="collapse-"+n.id)
+                                div(class="card card-body") 
+                                    div.col-md-6
+                                    h4 Edit movie
+                                    form(id="editMovieForm-"+n.id action="/admin/movies/"+n.id method="POST" enctype="multipart/form-data")
+                                        input(type="hidden" name="_method" value="put")
 
+                                        label(for="name") Name
+                                        input(type="text" name="name" value=n.name)
+
+                                        label(for="description") Description
+                                        textarea.form-control(name="description" rows="3") #{n.description}
+
+                                        label(for="image") Image
+                                        div.mb-4
+                                            input(type="file" name="image")
+
+                                        input.btn.btn-primary(type="submit" value="Submit")
                         td 
-                            form(id=n.id action="/admin/movies/"+n.id, method="POST")
-                                input(type="hidden" name="_method" value="delete")
-                                input(type="submit" class="btn btn-link" value="delete")
+                            div.container
+                                div.row.m-1 
+                                    button.btn.btn-primary.w-100(type="button" data-toggle="collapse" data-target="#collapse-"+n.id aria-expanded="false" aria-controls="collapse-"+n.id) edit
+                                div.row.m-1 
+                                    form(id=n.id action="/admin/movies/"+n.id, method="POST")
+                                        input(type="hidden" name="_method" value="delete")
+                                        input.btn.btn-danger.w-100(type="submit" value="delete")
+  
+                                        

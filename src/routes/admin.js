@@ -62,6 +62,17 @@ router.post("/movies/:id", tools.checkAdminAuthentication, async (req, res, next
             res.status(201).redirect("/admin/movies")
             break;
         case "put":
+            if (req.files && req.files.image){
+                let imgObj = req.files.image
+                if(imgObj.mimetype == "image/jpeg" || imgObj.mimetype == "image/png" || imgObj.mimetype == "image/jpg" ){
+                    let img_base64 = imgObj.data.toString('base64');
+                    req.body.image =  {
+                        data: img_base64,
+                        contentType: imgObj.mimetype
+                    }
+                }
+            }
+
             const updatedObject = await tools.putData( req, res, next, Movie )
             res.status(201).redirect("/admin/movies");
             break;
