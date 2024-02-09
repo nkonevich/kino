@@ -14,7 +14,7 @@ const MongoStore = require('connect-mongo')
  */
 const app = express()
 const port = process.env.PORT || "8000"
-const mongoURI = "mongodb://localhost:27017"
+const mongoURI = "mongodb://localhost:27017/kino_db"
 // const mongoURI = "mongodb://localhost:27017/kino_db"
 
 /**

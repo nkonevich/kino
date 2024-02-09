@@ -1,7 +1,7 @@
 extends layout
 block layout-content
 
-  h1.Banner #{movieshow.movie.name} #{timeToString(movieshow.time, "HH:mm DD-MM-YYYY")} 
+  h1.Banner #{movieshow.screenRoom.name} #{timeToString(movieshow.time, "HH:mm DD-MM-YYYY")} - #{movieshow.movie.name}
   h2.m-4.text-center SCREEN
 
   div.container-md
@@ -12,15 +12,15 @@ block layout-content
             each seat in movieshow.seatsAvailability
               if seat.seatRow == row
                 if seat.available
-                  if seat.seatType == "Standard"
-                    input.btn.btn-success.m-1.selectSeatButton(
+                  if seat.seatType == "Premium"
+                    input.btn.btn-info.m-1.selectSeatButton(
                       id="seat"+seat.seatRow+seat.seatNumber
                       type="button" 
                       onclick="assignSeatSelected('"+seat.seatRow+"', '"+seat.seatNumber+"', '"+seat.seatType+"', '"+seat._id+"')"
                       value=seat.seatRow+seat.seatNumber
-                      )
+                    )
                   else
-                    input.btn.btn-info.m-1.selectSeatButton(
+                    input.btn.btn-success.m-1.selectSeatButton(
                       id="seat"+seat.seatRow+seat.seatNumber
                       type="button" 
                       onclick="assignSeatSelected('"+seat.seatRow+"', '"+seat.seatNumber+"', '"+seat.seatType+"', '"+seat._id+"')"
