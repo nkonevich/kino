@@ -11,7 +11,7 @@ router.get("/", tools.checkAdminAuthentication, async (req, res, next) => {
 
     return res.status(200).render("admin/admin", { 
         title: "Admin", 
-        user: tools.getAuthenticatedUser(req, res, next),
+        user: await tools.getAuthenticatedUser(req, res, next),
         userIsAdmin: tools.userIsAdmin(req, res, next),
     });
 });
@@ -20,7 +20,7 @@ router.get("/screenrooms", tools.checkAdminAuthentication, async (req, res, next
     const foundObjects = await tools.getAll( req, res, next, ScreenRoom)
     return res.status(200).render("admin/screenrooms", {
         title: "Admin | Screen rooms",
-        user: tools.getAuthenticatedUser(req, res, next),
+        user: await tools.getAuthenticatedUser(req, res, next),
         userIsAdmin: tools.userIsAdmin(req, res, next),
         screenRooms: foundObjects
     });
@@ -30,7 +30,7 @@ router.get("/movies", tools.checkAdminAuthentication, async (req, res, next) => 
     const foundObjects = await tools.getAll( req, res, next, Movie)
     res.status(200).render("admin/movies", {
         title: "Admin | Movies",
-        user: tools.getAuthenticatedUser(req, res, next),
+        user: await tools.getAuthenticatedUser(req, res, next),
         userIsAdmin: tools.userIsAdmin(req, res, next),
         movies: foundObjects,
     });
@@ -92,7 +92,7 @@ router.get("/movieshows", tools.checkAdminAuthentication, async (req, res, next)
 
     return res.status(200).render("admin/movieshows", {
         title: "Admin | Movie shows",
-        user: tools.getAuthenticatedUser(req, res, next),
+        user: await tools.getAuthenticatedUser(req, res, next),
         userIsAdmin: tools.userIsAdmin(req, res, next),
         movieshows: movieshows,
         movies: movies,
@@ -170,7 +170,7 @@ router.get("/orders", tools.checkAdminAuthentication, async (req, res, next) => 
 
     res.status(200).render("admin/orders", {
         title: "Admin | Orders",
-        user: tools.getAuthenticatedUser(req, res, next),
+        user: await tools.getAuthenticatedUser(req, res, next),
         userIsAdmin: tools.userIsAdmin(req, res, next),
         orders: orders,
         timeToString: tools.formatString,
@@ -202,7 +202,7 @@ router.get("/users", tools.checkAdminAuthentication, async (req, res, next) => {
 
     res.status(200).render("admin/users", {
         title: "Admin | Users",
-        user: tools.getAuthenticatedUser(req, res, next),
+        user: await tools.getAuthenticatedUser(req, res, next),
         userIsAdmin: tools.userIsAdmin(req, res, next),
         users: foundObjects,
         title: "admin | Users"
@@ -254,7 +254,7 @@ router.get("/users/:id", tools.checkAdminAuthentication, async (req, res, next) 
 
             res.status(200).render("admin/user", { 
                 title: "Admin | User",
-                user: tools.getAuthenticatedUser(req, res, next),
+                user: await tools.getAuthenticatedUser(req, res, next),
                 userIsAdmin: tools.userIsAdmin(req, res, next),
                 orders: orders,
                 userOrders: await User.findById( id ),

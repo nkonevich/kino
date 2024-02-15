@@ -149,7 +149,7 @@ module.exports = {
         try {
             var authenticatedUser = null
             if(req.session.user) {
-                authenticatedUser =  await User.findById( req.session.userId )
+                authenticatedUser = User.findById( req.session.userId )
             }
             return authenticatedUser
         } catch (error) {
