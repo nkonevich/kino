@@ -1,0 +1,1 @@
+mongorestore -d kino_db /srv/kino_db

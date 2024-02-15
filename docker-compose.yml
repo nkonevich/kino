@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  kino_db:
+    image: mongo:7.0.5
+    ports:
+      - 27017:27017
+    volumes: 
+      - ./db/kino_db:/srv/kino_db
+      - ./db/mongo_init.sh:/docker-entrypoint-initdb.d/mongo_init.sh
+  kino_app:
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      PORT: 8000
+      MONGO_URI: "mongodb://kino_db:27017/kino_db"
+    depends_on:
+      - kino_db
+

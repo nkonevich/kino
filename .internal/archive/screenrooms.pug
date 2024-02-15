@@ -1,0 +1,79 @@
+extends layout
+//- TODO: find a way to add more seats dynamically
+
+block layout-content
+  h1.Banner Screen rooms
+
+  form(id="createScreenRoomForm" action="/admin/screenrooms" method="POST")
+    label(for="name") Name
+    input(id="name" type="text" name="name")
+    label(for="description") Description
+    input(id="description" type="text" name="description")
+    label(for="seatsForm") Seats
+    div(id="seatForm")
+      div(class="form-row col-md-6")
+          div(class="form-group col-md-2")
+              input(type="text" class="form-control" name="seats[][row]" placeholder="row")
+          div(class="form-group col-md-2")
+              input(type="text" class="form-control" name="seats[][number]" placeholder="number")
+          div(class="form-group col-md-2")
+              select(class="form-group" name="seats[][type]")
+                option(value="Standard") Standard
+                option(value="Premium") Premium
+          div(class="input-group-btn")
+              button(class="btn btn-success" type="button" onclick="add_row();")
+                  span(class="glyphicon glyphicon-plus" aria-hidden="true")
+    input(type="submit" value="Submit")
+
+
+  form(id="createScreenRoomForm" action="/admin/screenrooms" method="POST")
+    label(for="name") Name
+    input(id="name" type="text" name="name")
+    label(for="description") Description
+    input(id="description" type="text" name="description")
+    label(for="seatsForm") Seats
+    table(id="seatsForm" name)
+      tbody
+        tr
+          th Row
+          th Number
+          th Type
+        tr
+          td
+            input(type="text" name="row[]" value="a" style="max-width: 80px;")
+          td
+            input(type="text" name="number[]" value="1" style="max-width: 80px;")
+          td
+            select(name="type[]" from="createScreenRoomForm ")
+              option(value="Standard") Standard
+              option(value="Premium") Premium
+    input(type="submit" value="Submit")
+
+       
+
+
+  div
+    each n in screenRooms
+      div
+        p Name: #{n.name}
+        p Description: #{n.description}
+        div
+          h5 seats: 
+          each seat in n.seats
+            p #{seat.row}#{seat.number} #{seat.type} 
+
+  script.
+      var row = 1;
+      function add_row() {
+      
+          row++;
+          var objTo = document.getElementById('seatForm')
+          var divtest = document.createElement("div");
+          divtest.setAttribute("class", "form-group removerow"+row);
+          var rdiv = 'removerow'+row;
+          divtest.innerHTML = '<div class="form-row col-md-6"><div class="form-group col-md-2"><input class="form-control" type="text" name="row[]" placeholder="row"/></div><div class="form-group col-md-2"><input class="form-control" type="text" name="number[]" placeholder="number"/></div><div class="form-group col-md-2"><select class="form-group" name="type[]"><option value="Standard">Standard</option><option value="Premium">Premium</option></select></div><div class="input-group-btn"><button class="btn btn-danger" type="button" onclick="remove_row('+ row +');"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></div></div>';   
+          objTo.appendChild(divtest)
+      }
+      function remove_row(rid) {
+          $('.removerow'+rid).remove();
+      }

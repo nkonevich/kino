@@ -1,0 +1,120 @@
+###############################
+#usage
+
+npm install
+npm run dev
+# server URI   http://localhost:8000/
+
+
+###############################
+# initial installation
+
+npm init -y 
+
+# init server
+# https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/#Set-Up-Express-with-Node-js
+npm install express    
+# test start server (go to http://localhost:3000/)
+node server.js 
+
+# You'll use nodemon to monitor your project source code and automatically restart your Node.js server whenever it changes.
+npm i -D nodemon 
+# in package.json
+replace
+    "test": "echo \"Error: no test specified\" && exit 1"
+with
+    "dev": "nodemon ./index.js"
+
+# install pug for html templates
+# https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/#Use-the-Pug-Template-Engine-with-Express
+npm install pug --save
+
+# config server restart on content change
+# https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/#Add-Live-Reload-to-Express-Using-Browsersync
+npm install -g browser-sync
+browser-sync --version
+browser-sync init
+
+
+npm install mongoose  
+
+
+
+
+
+############################################
+# DB Schema
+
+main (list of movies)
+movie details + order form
+login page
+user details + order details
+
+admin:
+users list
+orders list + order details
+movies list + add/delete/edit movie
+
+
+
+
+
+#####################################################
+# additional
+#####################################################
+
+# provide users with access to some public files 
+https://www.digitalocean.com/community/tutorials/nodejs-express-basics
+
+
+npm install --save-dev jest
+
+
+
+
+      button(type="button" onclick="alert('Hello world!')") Click Me!
+
+
+
+
+
+########################################3
+populate
+https://www.mongodb.com/community/forums/t/populate-a-nested-schema-with-model-having-nested-schema-in-mongoose/10553
+
+########################################
+upload images
+https://thisisshreya.hashnode.dev/how-to-add-images-in-mongodb-using-mongoose-without-gridfs
+
+
+
+#############################################
+Dependencies
+#############################################
+"dayjs":            format dates into human readable form
+"dotenv":           loads environment variables from a .env file into process.env
+"express":          server
+"mongoose":         db
+"multer":           uploading files
+"nodemailer":       emails
+"pug":              html templates
+"browser-sync":     autorestarting webpages in browser when changes in code are made
+"nodemon":          auto restarting server when changes in code are made
+
+
+
+in .pug
+
+  pre.Details=JSON.stringify(movieshows, null, 2)
+
+https://www.mongodb.com/try/download/database-tools
+mongodump -d kino_db -o db_dump
+mongorestore -d kino_db db_dump/kino_db
+
+
+
+// novalidate to send data as url params
+form(id="myform" novalidate action="/" method="POST")
+    label(for="name") Name
+    input(type="text" id="name" name="name" required)
+    button(class="btn btn-primary" type="submit") Submit

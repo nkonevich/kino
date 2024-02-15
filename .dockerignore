@@ -1,0 +1,7 @@
+node_modules/
+.internal/
+db/
+Dockerfile
+docker-compose.yml
+deploy.sh
+kino-*.tgz

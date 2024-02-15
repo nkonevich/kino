@@ -11,6 +11,4 @@ module.exports = function(app){
     app.use('/admin', adminRouter)
     // api
     require('./api/api')(app);
-
-    require('./test')(app);
 }
