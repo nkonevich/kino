@@ -1,6 +1,0 @@
-node_modules/
-.internal/
-db/
-Dockerfile
-deploy.sh
-docker-compose.yml

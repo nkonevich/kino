@@ -98,22 +98,18 @@ module.exports = {
 
     // DateToString: pattern "00:00-01.01.2001"
     stringToDate: function ( dateString ) { 
-        console.log("executing stringToDate, string: "+dateString)
         const dayjs = require('dayjs')
         var customParseFormat = require('dayjs/plugin/customParseFormat')
         dayjs.extend(customParseFormat)
         // dayjs.extend(customParseFormat)
-        console.log(dateString)
         const newDate = dayjs(
             dateString, 
             'HH:MM-DD.MM.YYYY').format('YYYY-MM-DDTHH:mm:ss') 
-        console.log("return: "+newDate)
         return newDate
     },
 
     checkUserAuthentication: async function (req, res, next) {
         try {
-            console.log("checking auth")
             if(req.session.user) {
                 const { User } = require("../../models/userModel")
                 const { id } = req.params;
